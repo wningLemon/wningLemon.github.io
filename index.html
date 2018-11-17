@@ -76,7 +76,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/17/hexo-build/">Hello World11111111111111111111111111111</a>
+      <a class="article-title" href="/2018/11/17/hexo-build/">vue-resource怎么写服务类</a>
     </h1>
   
 
@@ -84,10 +84,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <p>vue-resource可以基于全局的Vue对象使用http（vue.http），也可以基于某个Vue实例使用http(this.$http)。<br>    基于全局Vue对象使用http<br>    Vue.http.get(‘/someUrl’, [options]).then(successCallback, errorCallback);<br>    Vue.http.post(‘/someUrl’, [body], [options]).then(successCallback, errorCallback);<br>    在一个Vue实例内使用$http<br>    this.$http.get(‘/someUrl’, [options]).then(successCallback, errorCallback);<br>    this.$http.post(‘/someUrl’, [body], [options]).then(successCallback, errorCallback);<br>在发送请求后，使用then方法来处理响应结果，then方法有两个参数，第一个参数是响应成功时的回调函数，第二个参数是响应失败时的回调函数。</p>
+<h2 id="两种场景使用"><a href="#两种场景使用" class="headerlink" title="两种场景使用"></a>两种场景使用</h2><h3 id="场景一-基于全局对象使用http（vue-http）"><a href="#场景一-基于全局对象使用http（vue-http）" class="headerlink" title="场景一 基于全局对象使用http（vue.http）"></a>场景一 基于全局对象使用http（vue.http）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.<span class="variable">$http</span>.get(<span class="string">'/static/address/address.json'</span>).<span class="keyword">then</span>(res =&gt; &#123; <span class="built_in">let</span> list = res.body &#125;)</span><br></pre></td></tr></table></figure>
+<p>上边是请求本地的json文件，then方法中传入一个参数，响应成功时将返回的数据传到本地的数组中，response.body为返回的请求体。<br>在实际项目开发过程中，用到的也是全局的，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> res =await <span class="variable">$http</span>.get(<span class="string">'/static/address/address.json'</span>, &#123;params: param&#125;).<span class="keyword">then</span>(res =&gt; res.json)</span><br></pre></td></tr></table></figure>
+<p>会发现没有写vue和this，但是事实是项目中对vue-reource进行了封装，所以直接$http直接可以代替全局的写法</p>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="场景二-基于某个vue组件使用http（this-http）"><a href="#场景二-基于某个vue组件使用http（this-http）" class="headerlink" title="场景二 基于某个vue组件使用http（this.$http）"></a>场景二 基于某个vue组件使用http（this.$http）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
 
       
@@ -179,7 +182,7 @@
       <ul>
         
           <li>
-            <a href="/2018/11/17/hexo-build/">Hello World11111111111111111111111111111</a>
+            <a href="/2018/11/17/hexo-build/">vue-resource怎么写服务类</a>
           </li>
         
           <li>
