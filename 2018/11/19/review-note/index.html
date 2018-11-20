@@ -5,15 +5,30 @@
   
 
   
-  <title>WningLemon</title>
+  <title>初学vue总结 | WningLemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="WningLemon">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="1.tempeletemplate不仅是模板最外面的标签，同时，它也可以作为一个普通的标签使用，为了保证ul-li结构下能够使子组件与li同级，写法如下： 可以使用 v-if 来控制部分区域的显示与隐藏时:  *template不能与v-show一起使用2.子组件索引可以使用 ref 为子组件指定一个索引 ID，被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的$refs对象。如果在普通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初学vue总结">
+<meta property="og:url" content="http://yoursite.com/2018/11/19/review-note/index.html">
 <meta property="og:site_name" content="WningLemon">
+<meta property="og:description" content="1.tempeletemplate不仅是模板最外面的标签，同时，它也可以作为一个普通的标签使用，为了保证ul-li结构下能够使子组件与li同级，写法如下： 可以使用 v-if 来控制部分区域的显示与隐藏时:  *template不能与v-show一起使用2.子组件索引可以使用 ref 为子组件指定一个索引 ID，被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的$refs对象。如果在普通">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/11/css/images/template.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/css/images/template2.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/css/images/child1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/css/images/child2.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/css/images/child3.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/css/images/model1.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/css/images/model2.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/css/images/model3.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/css/images/model4.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/css/images/model5.png">
+<meta property="og:updated_time" content="2018-11-20T12:20:13.829Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WningLemon">
+<meta name="twitter:title" content="初学vue总结">
+<meta name="twitter:description" content="1.tempeletemplate不仅是模板最外面的标签，同时，它也可以作为一个普通的标签使用，为了保证ul-li结构下能够使子组件与li同级，写法如下： 可以使用 v-if 来控制部分区域的显示与隐藏时:  *template不能与v-show一起使用2.子组件索引可以使用 ref 为子组件指定一个索引 ID，被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的$refs对象。如果在普通">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/css/images/template.jpg">
   
     <link rel="alternate" href="/atom.xml" title="WningLemon" type="application/atom+xml">
   
@@ -60,9 +75,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-review-note" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-review-note" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/19/review-note/" class="article-date">
   <time datetime="2018-11-19T06:30:47.136Z" itemprop="datePublished">2018-11-19</time>
@@ -75,8 +88,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/review-note/">初学vue总结</a>
+    <h1 class="article-title" itemprop="name">
+      初学vue总结
     </h1>
   
 
@@ -118,95 +131,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hexo-build" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/17/hexo-build/" class="article-date">
-  <time datetime="2018-11-17T06:56:23.035Z" itemprop="datePublished">2018-11-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/17/hexo-build/">vue-resource怎么写服务类</a>
-    </h1>
+    <a href="/2018/11/17/hexo-build/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">vue-resource怎么写服务类</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>vue-resource可以基于全局的Vue对象使用http（vue.http），也可以基于某个Vue实例使用http(this.$http)。<br>    基于全局Vue对象使用http<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Vue.http.get(<span class="string">'/someUrl'</span>, [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br><span class="line">Vue.http.post(<span class="string">'/someUrl'</span>, [body], [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br></pre></td></tr></table></figure></p>
-<p>在一个Vue实例内使用$http</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$http</span>.get(<span class="string">'/someUrl'</span>, [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br><span class="line">this.<span class="variable">$http</span>.post(<span class="string">'/someUrl'</span>, [body], [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br></pre></td></tr></table></figure>
-<p>在发送请求后，使用then方法来处理响应结果，then方法有两个参数，第一个参数是响应成功时的回调函数，第二个参数是响应失败时的回调函数。</p>
-<h2 id="两种场景使用"><a href="#两种场景使用" class="headerlink" title="两种场景使用"></a>两种场景使用</h2><h3 id="场景一-基于全局对象使用http（vue-http）"><a href="#场景一-基于全局对象使用http（vue-http）" class="headerlink" title="场景一 基于全局对象使用http（vue.http）"></a>场景一 基于全局对象使用http（vue.http）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.<span class="variable">$http</span>.get(<span class="string">'/static/address/address.json'</span>).<span class="keyword">then</span>(res =&gt; &#123; <span class="built_in">let</span> list = res.body &#125;)</span><br></pre></td></tr></table></figure>
-<p>上边是请求本地的json文件，then方法中传入一个参数，响应成功时将返回的数据传到本地的数组中，response.body为返回的请求体。<br>在实际项目开发过程中，用到的也是全局的，如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> res =await <span class="variable">$http</span>.get(<span class="string">'/static/address/address.json'</span>, &#123;params: param&#125;).<span class="keyword">then</span>(res =&gt; res.json)</span><br></pre></td></tr></table></figure>
-<p>会发现没有写vue和this，但是事实是项目中对vue-resource进行了封装，所以直接$http直接可以代替全局的写法</p>
-<h3 id="场景二-基于某个vue组件使用http（this-http）"><a href="#场景二-基于某个vue组件使用http（this-http）" class="headerlink" title="场景二 基于某个vue组件使用http（this.$http）"></a>场景二 基于某个vue组件使用http（this.$http）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">created</span></span> () &#123;</span><br><span class="line">  this.<span class="variable">$http</span>.get(<span class="string">'http://apis.baidu.com/tiyu'</span>, &#123;</span><br><span class="line">    params: &#123;num: 10&#125;</span><br><span class="line">  &#125;).<span class="keyword">then</span>((res) =&gt; &#123;console.log(res.body)&#125;, (err)=&gt;&#123;</span><br><span class="line">     console.log(<span class="string">'出错'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在一个组件中使用vue-resource时，将请求写在钩子函数中，大多数情况写在created钩子函数中。</p>
-<p>———————美丽的分割线———————<br>ps：以上都是开始学习vue的时候做的笔记，最近整理到博客上，也发现了其中的一些不足，慢慢完善</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/17/hexo-build/" data-id="cjopiz25p0001m8r2mu3y1gwu" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/16/hello-world/" class="article-date">
-  <time datetime="2018-11-16T02:16:00.239Z" itemprop="datePublished">2018-11-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/16/hello-world/">欢迎来踩踩</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>开始整理一些之前学习和在项目中的笔记，这样就不用在多个客户端下载OneNote然后同步笔记、同步笔记、同步笔记！最开始都是刚刚参加的时候做的一些笔记以及项目总结，比较稚嫩，后边还是会注意质量的输出。来啦~~~</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/16/hello-world/" data-id="cjopiz25k0000m8r237sd636f" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
