@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>调试工具的使用 | WningLemon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="开发怎么能离开调试工具，感谢浏览器的开发者调试工具，不墨迹来了。 1.F12调试1、打开开发者调试工具    通过以下方式打开开发者调试工具：    ① 在网页上右键选择“检查”    ② 快捷键 F12    ③ Ctrl+shift+i    ④ 找到浏览器右上角的三个点，找到更多工具，然后选择开发者工具开发者调试工具打开后的，如图： 2.导航条部分功能使用 ①快速找到页面中某个节点，利用导航">
+<meta property="og:type" content="article">
+<meta property="og:title" content="调试工具的使用">
+<meta property="og:url" content="http://yoursite.com/2018/11/23/review-note4/index.html">
+<meta property="og:site_name" content="WningLemon">
+<meta property="og:description" content="开发怎么能离开调试工具，感谢浏览器的开发者调试工具，不墨迹来了。 1.F12调试1、打开开发者调试工具    通过以下方式打开开发者调试工具：    ① 在网页上右键选择“检查”    ② 快捷键 F12    ③ Ctrl+shift+i    ④ 找到浏览器右上角的三个点，找到更多工具，然后选择开发者工具开发者调试工具打开后的，如图： 2.导航条部分功能使用 ①快速找到页面中某个节点，利用导航">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome1.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome2.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome3.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome4.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome5.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome6.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome7.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome8.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome9.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome1010.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome10.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome11.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome12.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome13.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome14.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome15.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome16.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome18.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome20.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/review-note4/chrome21.jpg">
+<meta property="og:updated_time" content="2018-12-04T03:24:14.745Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="调试工具的使用">
+<meta name="twitter:description" content="开发怎么能离开调试工具，感谢浏览器的开发者调试工具，不墨迹来了。 1.F12调试1、打开开发者调试工具    通过以下方式打开开发者调试工具：    ① 在网页上右键选择“检查”    ② 快捷键 F12    ③ Ctrl+shift+i    ④ 找到浏览器右上角的三个点，找到更多工具，然后选择开发者工具开发者调试工具打开后的，如图： 2.导航条部分功能使用 ①快速找到页面中某个节点，利用导航">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/23/review-note4/chrome1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="WningLemon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">WningLemon</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-review-note4" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/23/review-note4/" class="article-date">
+  <time datetime="2018-11-23T03:37:13.000Z" itemprop="datePublished">2018-11-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      调试工具的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>开发怎么能离开调试工具，感谢浏览器的开发者调试工具，不墨迹来了。</p>
+<h2 id="1-F12调试"><a href="#1-F12调试" class="headerlink" title="1.F12调试"></a>1.F12调试</h2><p>1、打开开发者调试工具<br>    通过以下方式打开开发者调试工具：<br>    ① 在网页上右键选择“检查”<br>    ② 快捷键 F12<br>    ③ Ctrl+shift+i<br>    ④ 找到浏览器右上角的三个点，找到更多工具，然后选择开发者工具<br>开发者调试工具打开后的，如图：<br><img src="/2018/11/23/review-note4/chrome1.png" alt="chrome1"></p>
+<h2 id="2-导航条部分功能使用"><a href="#2-导航条部分功能使用" class="headerlink" title="2.导航条部分功能使用"></a>2.导航条部分功能使用</h2><p> ①快速找到页面中某个节点，利用导航条最左端的小图标点击后变成蓝色，在界面的左侧就是“页面显示部分”鼠标停留的部分会变成高亮，点击时“调试工具显示部分”会显示被点击的节点的dom元素会高亮显示以及显示样式，如图:<br><img src="/2018/11/23/review-note4/chrome2.jpg" alt="chrome2"></p>
+<p>过开发者调试工具可以模拟移动端的界面，找到导航条中选中元素图标右边的矩形叠加小图标，点击，页面显示部分显示移动端的样式，如图：<br><img src="/2018/11/23/review-note4/chrome3.png" alt="chrome3"><br>③ 在①的图中看到开发者调试工具的页面看到是在右侧，在导航条部门找到三个点（不是浏览器的点），在弹出框部门选择模式，如图：<br><img src="/2018/11/23/review-note4/chrome4.png" alt="chrome4"><br>当前是在右侧，第一个是调试工具界面与页面显示部分分离出来。</p>
+<h2 id="3-Elements的使用"><a href="#3-Elements的使用" class="headerlink" title="3.Elements的使用"></a>3.Elements的使用</h2><p>在导航条中选择Elements，在标号为1的区域显示dom树结构，2区域显示样式，3为盒子模型，最中间显示的是左侧页面显示部分高亮元素的宽和高，绿色部分是pading的值，其次黄色是border和橙色是margin。<br><img src="/2018/11/23/review-note4/chrome5.jpg" alt="chrome5"></p>
+<p>在标号为2的区域中elements.style添加样式，可以在线调试样式，在该处添加样式会直接添加到行内样式中，所以优先级最高，如果在文件中已经定义了样式，不生效，在此处添加生效，那就要需要查看在页面中添加样式的优先级问题了。<br><img src="/2018/11/23/review-note4/chrome6.jpg" alt="chrome6"></p>
+<p>还可以通过Elements下载图片，找到图片的对应的节点，鼠标悬在图片节点上，会显示该图片，如下图，在图片的地址位置右键，在弹出的菜单选项中选择open in new tabs这样该图片显示new一个新的窗口页，即可下载<br><img src="/2018/11/23/review-note4/chrome7.jpg" alt="chrome7"></p>
+<h2 id="4-console的使用"><a href="#4-console的使用" class="headerlink" title="4.console的使用"></a>4.console的使用</h2><p>通常情况下我们想要打印一些信息就在页面中写console.log(data)等显示在此处，除此之外，也可以查看一些基础的知识或者演示一些代码，如：<br><img src="/2018/11/23/review-note4/chrome8.jpg" alt="chrome8"><br>返回了window下的所有属性，或者知识演示一些代码，如图:<br><img src="/2018/11/23/review-note4/chrome9.png" alt="chrome9"><br>熟知的是console.log()打印一般的日志，还有console.error()显示带有红色小图标的红色错误信息，console.warn()显示带有黄色小图标的警告信息。如图：<br><img src="/2018/11/23/review-note4/chrome1010.png" alt="chrome1010"></p>
+<h2 id="5-Sources的使用"><a href="#5-Sources的使用" class="headerlink" title="5.Sources的使用"></a>5.Sources的使用</h2><p>可以在这个面板显示当前项目的结构，选择一个项目可以进行调试js代码，如图:<br><img src="/2018/11/23/review-note4/chrome10.jpg" alt="chrome10"><br>左侧显示项目的结构，我们通过该面板本地的js代码，也可以调试远程的js代码，可以通过选择文件的名字打开文件或者用面板中间部分提示的快捷键打开文件，打开 一个文件，在面板的中间部分，显示全部文件信息，可以通过点击在js部分每行前边的序号添加断点，如图：<br><img src="/2018/11/23/review-note4/chrome11.jpg" alt="chrome11"><br>刷新页面后：<br><img src="/2018/11/23/review-note4/chrome12.jpg" alt="chrome12"><br>在执行第一个断点的方法时，页面显示部分如上图左侧显示，右侧画框的部分显示全部的断点，在一个断点的时候，可以通过查看变量的值，如;<br><img src="/2018/11/23/review-note4/chrome13.jpg" alt="chrome13"><br>将鼠标悬在左侧红色的框内，则会显示该变量的值，也可以通过在右侧的watch里添加需要监听的变量，点击加号，输入需要观察的变量名称后回车，即添加成功，若该变量实时变化watch中的变量也会实时变化，也可以添加多个需要监听的变量。同样也可以通过在source面板中添加自己的debugger代码。<br>在面板的右上角<br><img src="/2018/11/23/review-note4/chrome14.png" alt="chrome14"><br>有这样的几个小图标，分别是:<br>第1个：放行，停止该行代码的调试<br>第2个：不跳入函数中去，继续执行下一行代码（F10）<br>第3个：跳入函数中去（F11）<br>第4个：从执行的函数中跳出<br>第5个：禁用所有的断点，不做任何调试<br>第6个：程序运行时遇到异常时是否中断的开关</p>
+<h2 id="6-Network的使用"><a href="#6-Network的使用" class="headerlink" title="6.Network的使用"></a>6.Network的使用</h2><pre><code>在进行向接口请求数据或者提交数据的时候，需要使用到network面板，如：
+</code></pre><p>  <img src="/2018/11/23/review-note4/chrome15.jpg" alt="chrome15"><br>  目前network监听全部的请求，在面板左侧选择要查看的接口，点击后，可以看到面板右侧Headers的内容，包括一些请求地址、http请求状态，请求头以及传递的参数，提交数据的时候避免是出错要认真核对，切换选项卡到preview，查看接口返回的数据，如图：<br>   <img src="/2018/11/23/review-note4/chrome16.jpg" alt="chrome16"><br>   在这里师父交了一个大招，就是在监听media类型的时候，点击qq或者网易云音乐的音乐文件时候，在请求列表会显示请求的音乐，open in new tabs后既可以下载音乐了，再也不用买会员啦。</p>
+<p>##7.Application的使用<br>在Application可以查看存在浏览器中的全局信息，如图：<br><img src="/2018/11/23/review-note4/chrome18.png" alt="chrome18"><br>用到最多的就是左侧红色圈住的部分，当前查看的是存在localstorage中的信息，如上图的右侧，无论是哪一种存储机制，都是键值对的形式。</p>
+<h2 id="8-附加插件的使用"><a href="#8-附加插件的使用" class="headerlink" title="8.附加插件的使用"></a>8.附加插件的使用</h2><pre><code>项目开发使用vue框架，在chrome扩展插件中安装vue插件何乐而不为呢。首先利用蓝灯翻墙，然后在chrome的应用中搜索vue，如图：
+</code></pre><p><img src="/2018/11/23/review-note4/chrome20.jpg" alt="chrome20"><br>并选择添加，添加成功后，刷新浏览器，会在导航条部分出现<span style="color:blue">Vue</span><br>切换了，切换到vue面板中，如图：<br><img src="/2018/11/23/review-note4/chrome21.jpg" alt="chrome21"><br>在面板左侧显示，当前页面中所有的组件，<app>便是App.vue根组件，所有的组件都渲染在根组件的<router-view></router-view>中，展开<app>的箭头，会看到app下所有组件的名称，选择一个组件查看，可以查看到右侧的该组件的信息。也可以切换查看该组件的企业信息，比如Vuex状态管理器中的数据或者查看组件都执行了哪些事件，使vue的开发更加方便。</app></app></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/23/review-note4/" data-id="cjozh5kkw0004fsr20e5ifw3y" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/22/review-note2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">路由传参的几种方式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/23/review-note4/">调试工具的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/review-note2/">路由传参的几种方式</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/19/review-note/">初学vue总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/17/hexo-build/">vue-resource怎么写服务类</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/16/hello-world/">欢迎来踩踩</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 WningLemon<br>
+      Powered by <a href="http://hexo.io/" target="_blank">WningLemon</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
