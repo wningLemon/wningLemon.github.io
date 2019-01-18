@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>get、post请求 | WningLemon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. get、post概述get，post为两种请求方式，直观上的区别是，get的请求将请求的数据显示在url上，比如我在百度搜索’get’一词的时候，浏览器的URL地址变成：https://www.baidu.com/s?ie=utf-8&amp;amp;f=8&amp;amp;rsv_bp=0&amp;amp;rsv_idx=1&amp;amp;tn=baidu&amp;amp;wd=get&amp;amp;rsv_pq=afdd00d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="get、post请求">
+<meta property="og:url" content="http://yoursite.com/2018/10/16/review-note9/index.html">
+<meta property="og:site_name" content="WningLemon">
+<meta property="og:description" content="1. get、post概述get，post为两种请求方式，直观上的区别是，get的请求将请求的数据显示在url上，比如我在百度搜索’get’一词的时候，浏览器的URL地址变成：https://www.baidu.com/s?ie=utf-8&amp;amp;f=8&amp;amp;rsv_bp=0&amp;amp;rsv_idx=1&amp;amp;tn=baidu&amp;amp;wd=get&amp;amp;rsv_pq=afdd00d">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-17T13:02:05.318Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="get、post请求">
+<meta name="twitter:description" content="1. get、post概述get，post为两种请求方式，直观上的区别是，get的请求将请求的数据显示在url上，比如我在百度搜索’get’一词的时候，浏览器的URL地址变成：https://www.baidu.com/s?ie=utf-8&amp;amp;f=8&amp;amp;rsv_bp=0&amp;amp;rsv_idx=1&amp;amp;tn=baidu&amp;amp;wd=get&amp;amp;rsv_pq=afdd00d">
+  
+    <link rel="alternate" href="/atom.xml" title="WningLemon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">WningLemon</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-review-note9" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/16/review-note9/" class="article-date">
+  <time datetime="2018-10-16T08:35:06.000Z" itemprop="datePublished">2018-10-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      get、post请求
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<h3 id="1-get、post概述"><a href="#1-get、post概述" class="headerlink" title="1. get、post概述"></a>1. get、post概述</h3><p>get，post为两种请求方式，直观上的区别是，get的请求将请求的数据显示在url上，比如我在百度搜索’get’一词的时候，浏览器的URL地址变成：<a href="https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=1&amp;tn=baidu&amp;wd=get&amp;rsv_pq=afdd00d5000058f7&amp;rsv_t=94c5xvQi9LazQd58Y%2FTkD6Md5CXhxCNUEbxaryQAzTEGpOJ1J730WnTJboo&amp;rqlang=cn&amp;rsv_enter=1&amp;rsv_sug3=4&amp;rsv_sug1=3&amp;rsv_sug7=100&amp;rsv_sug2=0&amp;inputT=1659&amp;rsv_sug4=2475，以?分割URL和传输数据，参数之间以&amp;相连；" target="_blank" rel="noopener">https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=1&amp;tn=baidu&amp;wd=get&amp;rsv_pq=afdd00d5000058f7&amp;rsv_t=94c5xvQi9LazQd58Y%2FTkD6Md5CXhxCNUEbxaryQAzTEGpOJ1J730WnTJboo&amp;rqlang=cn&amp;rsv_enter=1&amp;rsv_sug3=4&amp;rsv_sug1=3&amp;rsv_sug7=100&amp;rsv_sug2=0&amp;inputT=1659&amp;rsv_sug4=2475，以?分割URL和传输数据，参数之间以&amp;相连；</a><br>post请求提交的数据则放置在是HTTP包的包体中。从而体现了get与post安全性的问题，比如：通过GET提交数据，用户名和密码将明文出现在URL上，因为(1登录页面有可能被浏览器缓存或者其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了。</p>
+<h3 id="2-get请求限制"><a href="#2-get请求限制" class="headerlink" title="2.get请求限制"></a>2.get请求限制</h3><p>由于GET是通过URL提交数据，那么GET可提交的数据量就跟URL的长度有直接关系了，而实际上，<b>URL不存在参数上限的问题，HTTP协议规范没有对URL长度进行限制。</b>这个限制是特定的浏览器及服务器对它的限制。理论来说，<b>POST是没有大小限制的，HTTP协议规范也没有进行大小限制，</b>起限制作用的是服务器的处理程序的处理能力。</p>
+<h3 id="3-get、post请求传递参数不同"><a href="#3-get、post请求传递参数不同" class="headerlink" title="3.get、post请求传递参数不同"></a>3.get、post请求传递参数不同</h3><p>get传递参数的方式，能够看到首先定义一个对象，存放需要传递的参数，在进行get请求的时候，第一个参数为url地址，第二个参数为参数列表，以对象key:value的方式进行传递，post请求传递URl地址以及参数对象就可以了。</p>
+<p>post请求<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$http</span>.post(API_HOST+<span class="string">'/scenery/adminInsertId'</span>, params).<span class="keyword">then</span>(<span class="keyword">function</span> (res) &#123;&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>get请求<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$http</span>.post(API_HOST+<span class="string">'/scenery/adminInsertId'</span>, &#123;params:params&#125;).<span class="keyword">then</span>(<span class="keyword">function</span> (res) &#123;&#125;)</span><br><span class="line">或者,若get请求只有一个参数的时候，也可以拼接在的url后边，参数为code：</span><br><span class="line"><span class="variable">$http</span>.get(API_HOST+<span class="string">'/session/getUserInfoByCode?code='</span> + code).<span class="keyword">then</span>(<span class="keyword">function</span> (res) &#123;&#125;)</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/16/review-note9/" data-id="cjr1qkv1t0008pkr2313h707a" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/16/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          欢迎来踩踩
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/主子路由/">主子路由</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/主子路由/" style="font-size: 10px;">主子路由</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/18/review-note10/">微信朋友圈全文、收起功能实现</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/15/review-note8/">map方法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/29/review-note7/">主子路由你想不到的用处</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/review-note6/">sessionStorage与localStorage的区别</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/review-note5/">代码提交、vscode的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 WningLemon<br>
+      Powered by <a href="http://hexo.io/" target="_blank">WningLemon</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
