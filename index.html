@@ -62,6 +62,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-review-note11" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/18/review-note11/" class="article-date">
+  <time datetime="2019-01-18T08:23:06.000Z" itemprop="datePublished">2019-01-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/18/review-note11/">命名视图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>有的时候有的页面需要左侧的菜单栏或者头部，但是有的页面不需要，那么该如何根据不同的页面是否显示左侧的菜单栏呢。想一想我们设置每个页面的title的时候，都在定义路由的时候设置的，所以能不能在meta中新添加一个属性，通过该属性来判断是都显示菜单呢。</p>
+<p>首先在router.js中配置路由<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	name: <span class="string">'super'</span>,</span><br><span class="line">	path: <span class="string">'/super'</span>,</span><br><span class="line">	meta: &#123;title: <span class="string">'超管首页'</span>, noLeft: <span class="literal">true</span>, keepAlive: <span class="literal">false</span>&#125;,</span><br><span class="line">	component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/superAdmin/super.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/superAdmin/super.vue'</span>))&#125;)&#125;</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line"> name: <span class="string">'card'</span>,</span><br><span class="line"> path: <span class="string">'/card'</span>,</span><br><span class="line"> meta: &#123;title: <span class="string">'景区名片'</span>, noLeft: <span class="literal">false</span>, keepAlive: <span class="literal">false</span>,  href: <span class="string">'/card'</span>&#125;,</span><br><span class="line"> component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/card/card.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/card/card.vue'</span>))&#125;)&#125;</span><br><span class="line">&#125;，</span><br></pre></td></tr></table></figure></p>
+<p>我们在meta对象中新增加属性noLeft，需要左侧菜单栏的时候设置false,不需要时设置为true,那么我们的app.vue是这样的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 左侧 --&gt;</span><br><span class="line">&lt;div  class=<span class="string">"main-left-menu"</span> v-if=<span class="string">"!<span class="variable">$route</span>.meta.noLeft"</span>&gt;</span><br><span class="line">  &lt;div v-for=<span class="string">"(menu, index) in menuList"</span> :key=<span class="string">"index"</span> :class=<span class="string">"['tab-left', &#123;active: hrefStr == menu.href&#125;]"</span> @click=<span class="string">"showList(menu, index)"</span>&gt;&#123;&#123;menu.name&#125;&#125;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 内容区域 --&gt;</span><br><span class="line">&lt;div :class=<span class="string">"&#123;'main-body': !<span class="variable">$route</span>.meta.noLeft&#125;"</span>&gt;</span><br><span class="line">    &lt;template v-if=<span class="string">"<span class="variable">$route</span>.meta.keepAlive"</span>&gt;</span><br><span class="line">      &lt;keep-alive&gt;</span><br><span class="line">          &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">      &lt;/keep-alive&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">    &lt;template v-else&gt;</span><br><span class="line">      &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>我们通过判断路由的meta的noLeft属性判断是否加载菜单</p>
+<p>定义css样式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">.main-left-menu&#123;</span><br><span class="line">		position: absolute;</span><br><span class="line">		top:60px;</span><br><span class="line">		bottom: 0;</span><br><span class="line">		width: 240px;</span><br><span class="line">		background:<span class="comment">#3D436A;</span></span><br><span class="line">		overflow: auto;</span><br><span class="line">		.tab-left &#123;</span><br><span class="line">			font-size: 20px;</span><br><span class="line">			line-height: 20px;</span><br><span class="line">			padding:10px;</span><br><span class="line">			color: <span class="comment">#fff;</span></span><br><span class="line">			margin-bottom: 10px;</span><br><span class="line">			cursor: pointer;	</span><br><span class="line">		&#125;</span><br><span class="line">		.active &#123;</span><br><span class="line">			background: <span class="comment">#49507C;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	.main-body&#123;</span><br><span class="line">		position: absolute;</span><br><span class="line">		left: 240px;</span><br><span class="line">		top:60px;</span><br><span class="line">		right: 0;</span><br><span class="line">		bottom: 0;</span><br><span class="line">		background:<span class="comment">#eee;</span></span><br><span class="line">		overflow: auto;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>从上边的css可以看出，那么被选中的tab页签，改变样式并跳转路由，首次进入的时候，我们通过当前的href来判断到底是哪个页面，渲染视图，那么需要定义一个左侧菜单栏的循环数组，数组如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> menuList: [</span><br><span class="line">  &#123;</span><br><span class="line">    name: <span class="string">'景区名片'</span>,</span><br><span class="line">    href: <span class="string">'/card'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    name: <span class="string">'景区相册'</span>,</span><br><span class="line">    href: <span class="string">'/photo'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    name: <span class="string">'旅游服务机构'</span>,</span><br><span class="line">    href: <span class="string">'/org'</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>能看出定义的href属性恰恰就是router.js中的路由地址，然后我们通过当前的地址（location.href）判断是哪个路由，添加active类，mounted代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> href = location.href.substring(location.href.lastIndexOf(<span class="string">'#'</span>)+1)</span><br><span class="line">this.hrefStr = href</span><br></pre></td></tr></table></figure>
+<p>然后点击左侧的菜单切换路由，添加一个方法为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">showList (menu, index) &#123;</span><br><span class="line">  this.hrefStr = menu.href</span><br><span class="line">  this.<span class="variable">$router</span>.push(&#123;path: menu.href&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>别以为完事了哦，有一个坑就是，如果用浏览器的回退按钮时，会发现，虽然页面跳转了，但是左侧菜单的状态并没有改变，只有刷新的时候才可以，所以才需要添加一个监听</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">  <span class="string">'$route.meta.href'</span> (val) &#123;</span><br><span class="line">    this.hrefStr = val</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这下就完美了，最后来一张效果图：<br><img src="/2019/01/18/review-note11/note11.jpg" alt="1.命名视图"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/18/review-note11/" data-id="cjr623kn90000ncr20gcf92e0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-review-note10" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/18/review-note10/" class="article-date">
@@ -109,7 +162,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/18/review-note10/" data-id="cjr1qkv120000pkr2wb325mdu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/18/review-note10/" data-id="cjr623knp0004ncr27z3knqrf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -152,7 +205,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/15/review-note8/" data-id="cjr1qkv1s0007pkr2pxb0zwu7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/15/review-note8/" data-id="cjr623kok0009ncr289xem18h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -194,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjr1qkv220009pkr28jm6x8fo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjr623kpv000bncr2ztx7s8s4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主子路由/">主子路由</a></li></ul>
@@ -242,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjr1qkv2i000cpkr2337rp3x1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjr623kok0007ncr2ibxpuiv8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -285,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjr1qkv1n0004pkr2k2pgov5w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjr623kok0006ncr2qt5qszan" class="article-share-link">Share</a>
       
       
     </footer>
@@ -335,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/23/review-note4/" data-id="cjr1qkv170002pkr28j8nhnsg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/23/review-note4/" data-id="cjr623kok0008ncr2yaopy3ha" class="article-share-link">Share</a>
       
       
     </footer>
@@ -383,7 +436,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/22/review-note2/" data-id="cjr1qkv1q0006pkr2sdqv5mqt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/22/review-note2/" data-id="cjr623knp0002ncr28hege368" class="article-share-link">Share</a>
       
       
     </footer>
@@ -445,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/20/review-note/" data-id="cjr1qkv180003pkr2jaxu0u3m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/20/review-note/" data-id="cjr623knp0003ncr2znuwpyum" class="article-share-link">Share</a>
       
       
     </footer>
@@ -492,44 +545,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/17/hello/" data-id="cjr1qkv1o0005pkr23sfpsz89" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/16/hello-world/" class="article-date">
-  <time datetime="2018-11-16T02:16:00.239Z" itemprop="datePublished">2018-11-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/16/hello-world/">欢迎来踩踩</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>开始整理一些之前学习和在项目中的笔记，这样就不用在多个客户端下载OneNote然后同步笔记、同步笔记、同步笔记！最开始都是刚刚参加的时候做的一些笔记以及项目总结，比较稚嫩，后边还是会注意质量的输出。来啦~~~</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/16/hello-world/" data-id="cjr1qkv160001pkr21mh98cbo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/17/hello/" data-id="cjr623knp0001ncr2inr3g016" class="article-share-link">Share</a>
       
       
     </footer>
@@ -589,6 +605,10 @@
       <ul>
         
           <li>
+            <a href="/2019/01/18/review-note11/">命名视图</a>
+          </li>
+        
+          <li>
             <a href="/2019/01/18/review-note10/">微信朋友圈全文、收起功能实现</a>
           </li>
         
@@ -602,10 +622,6 @@
         
           <li>
             <a href="/2018/12/05/review-note6/">sessionStorage与localStorage的区别</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/05/review-note5/">代码提交、vscode的使用</a>
           </li>
         
       </ul>
