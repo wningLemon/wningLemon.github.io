@@ -62,6 +62,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-review-note12" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/22/review-note12/" class="article-date">
+  <time datetime="2019-01-22T08:00:08.000Z" itemprop="datePublished">2019-01-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/22/review-note12/">iView表单循环表单验证</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>PC端现在用的最多的组件库就是iView，通常我们都是一个表单验证后就提交了，如果是动态新添加的表单，如何做验证并提交呢。首先先看一下要实现的样子：</p>
+<p><img src="/2019/01/22/review-note12/form.jpg" alt="1.循环表单验证"></p>
+<p>你会发现，两个表单在分别点击完成的时候都分别作了验证。</p>
+<p>iView的Form表单，需要两个属性，rule是表单验证规则，比如该字段是否需要必填等，即使是循环动态生成的表单，若是相同的表单项，那么验证规则一定是一样的，所以rule所关联的就是一个变量；还有一个属性model是表单数据对象，那么我们既然是循环生成的表单，并且每一次点击完成的时候是提交当前的表格的数据，所以我们想到model是循环生成表单的list的某一项，那么我们就可以定义变量了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 表单验证规则</span><br><span class="line">uploadFormRule: &#123;</span><br><span class="line">  mechanismAddress: [</span><br><span class="line">    &#123; required: <span class="literal">true</span>, message: <span class="string">'请输入服务机构地址'</span>, trigger: <span class="string">'blur'</span> &#125;],</span><br><span class="line">  mechanismName: [</span><br><span class="line">    &#123; required: <span class="literal">true</span>, message: <span class="string">'请输入服务机构名称'</span>, trigger: <span class="string">'blur'</span> &#125;],</span><br><span class="line">  mechanismPhone: [</span><br><span class="line">    &#123; required: <span class="literal">true</span>, message: <span class="string">'请输入手机号'</span>, trigger: <span class="string">'blur'</span> &#125;,</span><br><span class="line">    &#123; pattern: /^(\d&#123;11&#125;|\d&#123;3&#125;-\d&#123;8&#125;)$/, message: <span class="string">'请输入正确的联系方式'</span>, trigger: <span class="string">'blur'</span> &#125;</span><br><span class="line">  ],</span><br><span class="line">  mechanismUrl: [</span><br><span class="line">    &#123; <span class="built_in">type</span>: <span class="string">'url'</span>, message: <span class="string">'请输入正确的服务机构网址'</span>, trigger: <span class="string">'blur'</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br><span class="line">list: [</span><br><span class="line">  &#123;</span><br><span class="line">    mechanismAddress: <span class="string">""</span>,</span><br><span class="line">    mechanismName: <span class="string">""</span>,</span><br><span class="line">    mechanismPhone: <span class="string">""</span>,</span><br><span class="line">    mechanismUrl: <span class="string">""</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>那么循环表单的时候就可以写成(忽略一些样式所需要的元素)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Form v-for=<span class="string">"(li, index) in list"</span> :key=<span class="string">"index"</span>  :rules=<span class="string">"uploadFormRule"</span>  :model=<span class="string">"li"</span>&gt;&lt;/Form&gt;</span><br></pre></td></tr></table></figure>
+<p>那么现在就是最重要的问题了，我们知道如果是当个表单验证的时候就是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$refs</span>[name].validate((valid) =&gt; &#123;&#125;)</span><br><span class="line">// name指的是model所对应的对象名字</span><br></pre></td></tr></table></figure>
+<p>那么this.$ref是获取注册过的组件，所以需要使用ref来注册组件，通常单表单注册的时候就是model所关联的对象，但是是循环生成的表单并且都需要验证，那ref就需要换一个写法，ref是一个对象，也就是说点击完成的时候我们验证的是当前的这个表单，所以ref需要关联当前的index,所以表单写成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Form v-for=<span class="string">"(li, index) in list"</span> :key=<span class="string">"index"</span>  :rules=<span class="string">"uploadFormRule"</span>  :model=<span class="string">"li"</span> :ref=<span class="string">"'list' + index"</span>&gt;&lt;/Form&gt;</span><br><span class="line">// 当然ref里边list可以替换成想要的字符串，比如li</span><br><span class="line">// 验证表单的时候：</span><br><span class="line"><span class="built_in">let</span> form = <span class="string">'list'</span> + index</span><br><span class="line">this.<span class="variable">$refs</span>[form][0].validate((valid) =&gt; &#123;&#125;)</span><br></pre></td></tr></table></figure>
+<p>之所以这样写，把refs打印出来是这样的<br><img src="/2019/01/22/review-note12/ref.jpg" alt="2.打印ref"></p>
+<p>页面有几个表单，就注册了几个表单，refs是一个对象，注册时使用ref=”‘list’ + index”来命名每一个表单，自然取出时也需要拼接这样的一个字符串，从上图中可以看出，每一个ref对象（每一个表单项都一个数组），打印一下我们可以看出，我们每个表单所对应的model绑定数据对象以及rule<br><img src="/2019/01/22/review-note12/ref2.jpg" alt="3.张开refs中某一项"></p>
+<p><strong>总结：循环表单验证的时候注册组件时主要加上该表单的唯一标识，index或者key</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/22/review-note12/" data-id="cjr8mpqph0000vkr2eqhz0e4m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-review-note11" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/18/review-note11/" class="article-date">
@@ -105,7 +157,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/18/review-note11/" data-id="cjr623kn90000ncr20gcf92e0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/18/review-note11/" data-id="cjr8mpqpn0002vkr25mjo0m1l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -145,24 +197,24 @@
 <p>那么就算是超过部分用省略号代替已经解决了，那么点击箭头展示全部怎么解决呢，动态改变css样式，那么一定需要一个状态值来判断，这个状态值就由js来做吧。这是初步想法。</p>
 <p>看一下实现后的样子：<br><img src="/2019/01/18/review-note10/list.png" alt="1.list列表"></p>
 <p>① 可以看到若是文字超过两行显示向下的箭头，省略号代替其他部分<br>② 若文字没有超过两行不显示箭头不显示省略号<br>③ 点击向下的箭头，显示该条的全部内容，箭头向上，点击向上箭头收起内容</p>
-<p>那么现在我们看到是一个列表，布局就用<ul><li></li></ul>，因为列表里边既有一行的时候也有两行的时候，所以我给了li一个padding，然后里边放一个div，这个div里边包括文字和箭头。所以html是这样写的：</p>
+<p>那么现在我们看到是一个列表，布局就用ul li，因为列表里边既有一行的时候也有两行的时候，所以我给了li一个padding，然后里边放一个div，这个div里边包括文字和箭头。所以html是这样写的：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;li :class=<span class="string">"&#123;'limit': item.state&#125;"</span> ref=<span class="string">"li"</span> v-for=<span class="string">"(item, index) in zcList.data"</span> @click.stop=<span class="string">"zcNameC(item)"</span> :key=<span class="string">"index"</span>&gt;</span><br><span class="line">    &lt;div :class=<span class="string">"['content', &#123;'content-limit': item.state&#125;]"</span>&gt;</span><br><span class="line">      &lt;div class=<span class="string">"content-msg"</span>&gt;&#123;&#123;item.content&#125;&#125;&lt;/div&gt;</span><br><span class="line">      &lt;span v-if=<span class="string">"moreArr[index]"</span> :class=<span class="string">"item.state ? 'arrowdown': 'arrowtop'"</span> @click.stop=<span class="string">"deploy(item, index)"</span>&gt;&lt;/span&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
 <p>对应的css样式是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">li &#123;</span><br><span class="line">  padding: 10px 15px 10px 0;</span><br><span class="line">  position:relative;</span><br><span class="line">  font-size: 1.5rem;</span><br><span class="line">  text-align: left;</span><br><span class="line">  line-height: 2.4rem;</span><br><span class="line">&#125;</span><br><span class="line">.limit &#123;</span><br><span class="line">  max-height: 70px;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">  text-overflow:ellipsis; </span><br><span class="line">  display: -webkit-box;</span><br><span class="line">  -webkit-box-orient: vertical;</span><br><span class="line">  -webkit-line-clamp: 2;    </span><br><span class="line">&#125;</span><br><span class="line">.content&#123;</span><br><span class="line">    width: 100%;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.content-limit&#123;</span><br><span class="line">  max-height: 50px;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">&#125;</span><br><span class="line">.content-msg&#123;</span><br><span class="line">  padding-right: 44px;</span><br><span class="line">&#125;</span><br><span class="line">.arrowdown&#123;</span><br><span class="line">  background: url(&quot;../assets/down.png&quot;) no-repeat;</span><br><span class="line">  background-size: 10px 6px;  </span><br><span class="line">&#125;</span><br><span class="line">.arrowtop&#123;</span><br><span class="line">  background: url(&quot;../assets/top.png&quot;) no-repeat;</span><br><span class="line">  background-size: 10px 6px;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>可以看出来我们需要两个变量，一个moreArr数组来判断是否显示箭头，一个是每一个条目有一个箭头的状态是向上还是向下，项目太久，现在想完全可以使用一个状态来判断是否显示箭头。</p>
 <p>js代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  <span class="built_in">let</span> lis = document.getElementsByClassName(<span class="string">'content-msg'</span>)</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; lis.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (lis[i].offsetHeight / 24 &gt; 2) &#123;</span><br><span class="line">      this.moreArr.push(<span class="literal">true</span>)</span><br><span class="line">      this.<span class="variable">$set</span>(this.zcList.data[i], <span class="string">'state'</span>, <span class="literal">true</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      this.moreArr.push(<span class="literal">false</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <p>首先我们需要判断当前每个条目是否超过了两行，因为每行字有一行高，那么可以用包裹文字的div的高度除以每行字的行高，24px是每一行字的行高，若是大于2(依情况而定)，那么需要给当前对象添加箭头，那么就在moreArr中添加一个true，并且将列表项添加state属性并为true</p>
-<p><strong>注意：一定要加setTimeout，先请求接口才能去获取包裹文字的div不然获取不到</strong></p>
+<p><strong>注意：一定要加setTimeout或者nextTick，先请求接口才能去获取包裹文字的div不然获取不到。因为我在请求接口的时候使用async await 将请求接口变成异步操作了，所以要把上边的方法变成异步的</strong></p>
 <p>那么点击箭头的时候就改变state的状态就好了，代码如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy (item, index) &#123;</span><br><span class="line">  <span class="keyword">if</span> (item.hasOwnProperty(<span class="string">'state'</span>)) &#123;</span><br><span class="line">    item.state = !item.state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>那么有了这个经验来写微信的全文查看以及收起全文就简单很多了，先看一下效果<br><img src="/2019/01/18/review-note10/wechat.png" alt="2.朋友圈样式模仿"></p>
 <p>左边的图是没有点开全文的时候，右边是点开的时候。这个是类似于朋友圈的功能，上拉加载下一页，所以在请求接口后都要计算再次渲染的条目的高度。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;div :class=<span class="string">"['con-outer',&#123;'con-box': li.state&#125; ]"</span>&gt;</span><br><span class="line">  &lt;p class=<span class="string">"content-msg"</span> v-html=<span class="string">"<span class="variable">$options</span>.filters.toHtml(li.content)"</span>&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div&gt;&lt;span v-show=<span class="string">"moreArr[li.id]"</span> class=<span class="string">"btn-show"</span> @click.stop=<span class="string">"deploy(li,index)"</span>&gt;&#123;&#123;li.state ? <span class="string">'全文'</span>:<span class="string">'收起'</span>&#125;&#125;&lt;/span&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">.con-outer&#123;</span><br><span class="line">    position:relative;</span><br><span class="line">    font-size: 15px;</span><br><span class="line">    color: <span class="comment">#666666;</span></span><br><span class="line">    line-height: 21px;</span><br><span class="line">    word-break:<span class="built_in">break</span>-all;</span><br><span class="line">    text-align: justify;</span><br><span class="line">    padding-left: 15px;</span><br><span class="line">&#125;</span><br><span class="line">.con-box&#123;</span><br><span class="line">  max-height: 104px;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">  text-overflow:ellipsis;</span><br><span class="line">  display: -webkit-box;</span><br><span class="line">  -webkit-box-orient: vertical;</span><br><span class="line">  -webkit-line-clamp: 5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">etStatus</span></span> () &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> lis = document.getElementsByClassName(<span class="string">'content-msg'</span>)</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; lis.length; i++) &#123;</span><br><span class="line">      <span class="built_in">let</span> item = this.list[i]</span><br><span class="line">      <span class="keyword">if</span> (!item.state) &#123;</span><br><span class="line">        <span class="keyword">if</span> (lis[i].offsetHeight / 21 &gt; 5.1) &#123;</span><br><span class="line">          this.<span class="variable">$set</span>(item, <span class="string">'state'</span>, <span class="literal">true</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          this.<span class="variable">$set</span>(item, <span class="string">'state'</span>, <span class="literal">false</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        this.moreArr[item.id] = item.state</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;div :class=<span class="string">"['con-outer',&#123;'con-box': li.state&#125; ]"</span>&gt;</span><br><span class="line">  &lt;p class=<span class="string">"content-msg"</span> v-html=<span class="string">"<span class="variable">$options</span>.filters.toHtml(li.content)"</span>&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div&gt;&lt;span v-show=<span class="string">"moreArr[li.id]"</span> class=<span class="string">"btn-show"</span> @click.stop=<span class="string">"deploy(li,index)"</span>&gt;&#123;&#123;li.state ? <span class="string">'全文'</span>:<span class="string">'收起'</span>&#125;&#125;&lt;/span&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">.con-outer&#123;</span><br><span class="line">    position:relative;</span><br><span class="line">    font-size: 15px;</span><br><span class="line">    color: <span class="comment">#666666;</span></span><br><span class="line">    line-height: 21px;</span><br><span class="line">    word-break:<span class="built_in">break</span>-all;</span><br><span class="line">    text-align: justify;</span><br><span class="line">    padding-left: 15px;</span><br><span class="line">&#125;</span><br><span class="line">.con-box&#123;</span><br><span class="line">  max-height: 104px;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">  text-overflow:ellipsis;</span><br><span class="line">  display: -webkit-box;</span><br><span class="line">  -webkit-box-orient: vertical;</span><br><span class="line">  -webkit-line-clamp: 5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">getStatus</span></span> () &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> lis = document.getElementsByClassName(<span class="string">'content-msg'</span>)</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; lis.length; i++) &#123;</span><br><span class="line">      <span class="built_in">let</span> item = this.list[i]</span><br><span class="line">      <span class="keyword">if</span> (!item.state) &#123;</span><br><span class="line">        <span class="keyword">if</span> (lis[i].offsetHeight / 21 &gt; 5.1) &#123;</span><br><span class="line">          this.<span class="variable">$set</span>(item, <span class="string">'state'</span>, <span class="literal">true</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          this.<span class="variable">$set</span>(item, <span class="string">'state'</span>, <span class="literal">false</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        this.moreArr[item.id] = item.state</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <p>嗯哼，有分页，所以想每次添加state的状态的时候就只遍历新增加的条目，然而踩了好多坑。其实这个项目做了太久了快两年了，不记得当时踩了哪些坑然后这样写了， 最近有同事问起来，所以想着总结一下</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/18/review-note10/" data-id="cjr623knp0004ncr27z3knqrf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/18/review-note10/" data-id="cjr8mpqqf000bvkr2gj3yvhsh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -205,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/15/review-note8/" data-id="cjr623kok0009ncr289xem18h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/15/review-note8/" data-id="cjr8mpqq50006vkr2lwn3yg3o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -247,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjr623kpv000bncr2ztx7s8s4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjr8mpqqe000avkr2eq3gh43h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主子路由/">主子路由</a></li></ul>
@@ -295,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjr623kok0007ncr2ibxpuiv8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjr8mpqqu000dvkr2ci8jlgnq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -338,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjr623kok0006ncr2qt5qszan" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjr8mpqqc0009vkr26ig15lnu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -388,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/23/review-note4/" data-id="cjr623kok0008ncr2yaopy3ha" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/23/review-note4/" data-id="cjr8mpqq30005vkr243fodmze" class="article-share-link">Share</a>
       
       
     </footer>
@@ -436,7 +488,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/22/review-note2/" data-id="cjr623knp0002ncr28hege368" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/22/review-note2/" data-id="cjr8mpqq00003vkr2l9qath4v" class="article-share-link">Share</a>
       
       
     </footer>
@@ -498,54 +550,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/20/review-note/" data-id="cjr623knp0003ncr2znuwpyum" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/17/hello/" class="article-date">
-  <time datetime="2018-11-17T06:56:23.035Z" itemprop="datePublished">2018-11-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/17/hello/">vue-resource怎么写服务类</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>vue-resource可以基于全局的Vue对象使用http（vue.http），也可以基于某个Vue实例使用http(this.$http)。<br>    基于全局Vue对象使用http<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Vue.http.get(<span class="string">'/someUrl'</span>, [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br><span class="line">Vue.http.post(<span class="string">'/someUrl'</span>, [body], [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br></pre></td></tr></table></figure></p>
-<p>在一个Vue实例内使用$http</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$http</span>.get(<span class="string">'/someUrl'</span>, [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br><span class="line">this.<span class="variable">$http</span>.post(<span class="string">'/someUrl'</span>, [body], [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br></pre></td></tr></table></figure>
-<p>在发送请求后，使用then方法来处理响应结果，then方法有两个参数，第一个参数是响应成功时的回调函数，第二个参数是响应失败时的回调函数。</p>
-<h2 id="两种场景使用"><a href="#两种场景使用" class="headerlink" title="两种场景使用"></a>两种场景使用</h2><h3 id="场景一-基于全局对象使用http（vue-http）"><a href="#场景一-基于全局对象使用http（vue-http）" class="headerlink" title="场景一 基于全局对象使用http（vue.http）"></a>场景一 基于全局对象使用http（vue.http）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.<span class="variable">$http</span>.get(<span class="string">'/static/address/address.json'</span>).<span class="keyword">then</span>(res =&gt; &#123; <span class="built_in">let</span> list = res.body &#125;)</span><br></pre></td></tr></table></figure>
-<p>上边是请求本地的json文件，then方法中传入一个参数，响应成功时将返回的数据传到本地的数组中，response.body为返回的请求体。<br>在实际项目开发过程中，用到的也是全局的，如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> res =await <span class="variable">$http</span>.get(<span class="string">'/static/address/address.json'</span>, &#123;params: param&#125;).<span class="keyword">then</span>(res =&gt; res.json)</span><br></pre></td></tr></table></figure>
-<p>会发现没有写vue和this，但是事实是项目中对vue-resource进行了封装，所以直接$http直接可以代替全局的写法</p>
-<h3 id="场景二-基于某个vue组件使用http（this-http）"><a href="#场景二-基于某个vue组件使用http（this-http）" class="headerlink" title="场景二 基于某个vue组件使用http（this.$http）"></a>场景二 基于某个vue组件使用http（this.$http）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">created</span></span> () &#123;</span><br><span class="line">  this.<span class="variable">$http</span>.get(<span class="string">'http://apis.baidu.com/tiyu'</span>, &#123;</span><br><span class="line">    params: &#123;num: 10&#125;</span><br><span class="line">  &#125;).<span class="keyword">then</span>((res) =&gt; &#123;console.log(res.body)&#125;, (err)=&gt;&#123;</span><br><span class="line">     console.log(<span class="string">'出错'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在一个组件中使用vue-resource时，将请求写在钩子函数中，大多数情况写在created钩子函数中。</p>
-<p>———————美丽的分割线———————<br>ps：以上都是开始学习vue的时候做的笔记，最近整理到博客上，也发现了其中的一些不足，慢慢完善</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/17/hello/" data-id="cjr623knp0001ncr2inr3g016" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/20/review-note/" data-id="cjr8mpqq20004vkr2db8zcqf6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -605,6 +610,10 @@
       <ul>
         
           <li>
+            <a href="/2019/01/22/review-note12/">iView表单循环表单验证</a>
+          </li>
+        
+          <li>
             <a href="/2019/01/18/review-note11/">命名视图</a>
           </li>
         
@@ -618,10 +627,6 @@
         
           <li>
             <a href="/2018/12/29/review-note7/">主子路由你想不到的用处</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/05/review-note6/">sessionStorage与localStorage的区别</a>
           </li>
         
       </ul>

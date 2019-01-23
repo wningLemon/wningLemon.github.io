@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>iView表单循环表单验证 | WningLemon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="PC端现在用的最多的组件库就是iView，通常我们都是一个表单验证后就提交了，如果是动态新添加的表单，如何做验证并提交呢。首先先看一下要实现的样子：  你会发现，两个表单在分别点击完成的时候都分别作了验证。 iView的Form表单，需要两个属性，rule是表单验证规则，比如该字段是否需要必填等，即使是循环动态生成的表单，若是相同的表单项，那么验证规则一定是一样的，所以rule所关联的就是一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iView表单循环表单验证">
+<meta property="og:url" content="http://yoursite.com/2019/01/22/review-note12/index.html">
+<meta property="og:site_name" content="WningLemon">
+<meta property="og:description" content="PC端现在用的最多的组件库就是iView，通常我们都是一个表单验证后就提交了，如果是动态新添加的表单，如何做验证并提交呢。首先先看一下要实现的样子：  你会发现，两个表单在分别点击完成的时候都分别作了验证。 iView的Form表单，需要两个属性，rule是表单验证规则，比如该字段是否需要必填等，即使是循环动态生成的表单，若是相同的表单项，那么验证规则一定是一样的，所以rule所关联的就是一个">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/review-note12/form.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/review-note12/ref.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/review-note12/ref2.jpg">
+<meta property="og:updated_time" content="2019-01-23T03:28:08.586Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iView表单循环表单验证">
+<meta name="twitter:description" content="PC端现在用的最多的组件库就是iView，通常我们都是一个表单验证后就提交了，如果是动态新添加的表单，如何做验证并提交呢。首先先看一下要实现的样子：  你会发现，两个表单在分别点击完成的时候都分别作了验证。 iView的Form表单，需要两个属性，rule是表单验证规则，比如该字段是否需要必填等，即使是循环动态生成的表单，若是相同的表单项，那么验证规则一定是一样的，所以rule所关联的就是一个">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/22/review-note12/form.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="WningLemon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">WningLemon</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-review-note12" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/22/review-note12/" class="article-date">
+  <time datetime="2019-01-22T08:00:08.000Z" itemprop="datePublished">2019-01-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iView表单循环表单验证
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>PC端现在用的最多的组件库就是iView，通常我们都是一个表单验证后就提交了，如果是动态新添加的表单，如何做验证并提交呢。首先先看一下要实现的样子：</p>
+<p><img src="/2019/01/22/review-note12/form.jpg" alt="1.循环表单验证"></p>
+<p>你会发现，两个表单在分别点击完成的时候都分别作了验证。</p>
+<p>iView的Form表单，需要两个属性，rule是表单验证规则，比如该字段是否需要必填等，即使是循环动态生成的表单，若是相同的表单项，那么验证规则一定是一样的，所以rule所关联的就是一个变量；还有一个属性model是表单数据对象，那么我们既然是循环生成的表单，并且每一次点击完成的时候是提交当前的表格的数据，所以我们想到model是循环生成表单的list的某一项，那么我们就可以定义变量了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 表单验证规则</span><br><span class="line">uploadFormRule: &#123;</span><br><span class="line">  mechanismAddress: [</span><br><span class="line">    &#123; required: <span class="literal">true</span>, message: <span class="string">'请输入服务机构地址'</span>, trigger: <span class="string">'blur'</span> &#125;],</span><br><span class="line">  mechanismName: [</span><br><span class="line">    &#123; required: <span class="literal">true</span>, message: <span class="string">'请输入服务机构名称'</span>, trigger: <span class="string">'blur'</span> &#125;],</span><br><span class="line">  mechanismPhone: [</span><br><span class="line">    &#123; required: <span class="literal">true</span>, message: <span class="string">'请输入手机号'</span>, trigger: <span class="string">'blur'</span> &#125;,</span><br><span class="line">    &#123; pattern: /^(\d&#123;11&#125;|\d&#123;3&#125;-\d&#123;8&#125;)$/, message: <span class="string">'请输入正确的联系方式'</span>, trigger: <span class="string">'blur'</span> &#125;</span><br><span class="line">  ],</span><br><span class="line">  mechanismUrl: [</span><br><span class="line">    &#123; <span class="built_in">type</span>: <span class="string">'url'</span>, message: <span class="string">'请输入正确的服务机构网址'</span>, trigger: <span class="string">'blur'</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br><span class="line">list: [</span><br><span class="line">  &#123;</span><br><span class="line">    mechanismAddress: <span class="string">""</span>,</span><br><span class="line">    mechanismName: <span class="string">""</span>,</span><br><span class="line">    mechanismPhone: <span class="string">""</span>,</span><br><span class="line">    mechanismUrl: <span class="string">""</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>那么循环表单的时候就可以写成(忽略一些样式所需要的元素)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Form v-for=<span class="string">"(li, index) in list"</span> :key=<span class="string">"index"</span>  :rules=<span class="string">"uploadFormRule"</span>  :model=<span class="string">"li"</span>&gt;&lt;/Form&gt;</span><br></pre></td></tr></table></figure>
+<p>那么现在就是最重要的问题了，我们知道如果是当个表单验证的时候就是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$refs</span>[name].validate((valid) =&gt; &#123;&#125;)</span><br><span class="line">// name指的是model所对应的对象名字</span><br></pre></td></tr></table></figure>
+<p>那么this.$ref是获取注册过的组件，所以需要使用ref来注册组件，通常单表单注册的时候就是model所关联的对象，但是是循环生成的表单并且都需要验证，那ref就需要换一个写法，ref是一个对象，也就是说点击完成的时候我们验证的是当前的这个表单，所以ref需要关联当前的index,所以表单写成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Form v-for=<span class="string">"(li, index) in list"</span> :key=<span class="string">"index"</span>  :rules=<span class="string">"uploadFormRule"</span>  :model=<span class="string">"li"</span> :ref=<span class="string">"'list' + index"</span>&gt;&lt;/Form&gt;</span><br><span class="line">// 当然ref里边list可以替换成想要的字符串，比如li</span><br><span class="line">// 验证表单的时候：</span><br><span class="line"><span class="built_in">let</span> form = <span class="string">'list'</span> + index</span><br><span class="line">this.<span class="variable">$refs</span>[form][0].validate((valid) =&gt; &#123;&#125;)</span><br></pre></td></tr></table></figure>
+<p>之所以这样写，把refs打印出来是这样的<br><img src="/2019/01/22/review-note12/ref.jpg" alt="2.打印ref"></p>
+<p>页面有几个表单，就注册了几个表单，refs是一个对象，注册时使用ref=”‘list’ + index”来命名每一个表单，自然取出时也需要拼接这样的一个字符串，从上图中可以看出，每一个ref对象（每一个表单项都一个数组），打印一下我们可以看出，我们每个表单所对应的model绑定数据对象以及rule<br><img src="/2019/01/22/review-note12/ref2.jpg" alt="3.张开refs中某一项"></p>
+<p><strong>总结：循环表单验证的时候注册组件时主要加上该表单的唯一标识，index或者key</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/22/review-note12/" data-id="cjr8mpqph0000vkr2eqhz0e4m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/01/18/review-note11/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">命名视图</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/主子路由/">主子路由</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/主子路由/" style="font-size: 10px;">主子路由</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/22/review-note12/">iView表单循环表单验证</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/18/review-note11/">命名视图</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/18/review-note10/">微信朋友圈全文、收起功能实现</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/15/review-note8/">map方法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/29/review-note7/">主子路由你想不到的用处</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 WningLemon<br>
+      Powered by <a href="http://hexo.io/" target="_blank">WningLemon</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
