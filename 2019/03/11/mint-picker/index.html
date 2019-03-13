@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>如何设置Mint UI中Picker中的默认值 | WningLemon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="第一步：引入组件js部分引入依赖123import &amp;#123; Popup, Picker&amp;#125; from &quot;mint-ui&quot;;Vue.component(Switch.name, Switch);Vue.component(Popup.name, Popup); 在模板中引入1234&amp;lt;mt-popup v-model=&quot;remindVisible&quot; position=&quot;bott">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何设置Mint UI中Picker中的默认值">
+<meta property="og:url" content="http://yoursite.com/2019/03/11/mint-picker/index.html">
+<meta property="og:site_name" content="WningLemon">
+<meta property="og:description" content="第一步：引入组件js部分引入依赖123import &amp;#123; Popup, Picker&amp;#125; from &quot;mint-ui&quot;;Vue.component(Switch.name, Switch);Vue.component(Popup.name, Popup); 在模板中引入1234&amp;lt;mt-popup v-model=&quot;remindVisible&quot; position=&quot;bott">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-11T07:59:38.939Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何设置Mint UI中Picker中的默认值">
+<meta name="twitter:description" content="第一步：引入组件js部分引入依赖123import &amp;#123; Popup, Picker&amp;#125; from &quot;mint-ui&quot;;Vue.component(Switch.name, Switch);Vue.component(Popup.name, Popup); 在模板中引入1234&amp;lt;mt-popup v-model=&quot;remindVisible&quot; position=&quot;bott">
+  
+    <link rel="alternate" href="/atom.xml" title="WningLemon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">WningLemon</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mint-picker" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/11/mint-picker/" class="article-date">
+  <time datetime="2019-03-11T02:23:41.000Z" itemprop="datePublished">2019-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何设置Mint UI中Picker中的默认值
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<h3 id="第一步：引入组件"><a href="#第一步：引入组件" class="headerlink" title="第一步：引入组件"></a>第一步：引入组件</h3><p>js部分引入依赖<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Popup, Picker&#125; from <span class="string">"mint-ui"</span>;</span><br><span class="line">Vue.component(Switch.name, Switch);</span><br><span class="line">Vue.component(Popup.name, Popup);</span><br></pre></td></tr></table></figure></p>
+<p>在模板中引入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;mt-popup v-model=<span class="string">"remindVisible"</span> position=<span class="string">"bottom"</span> class=<span class="string">"remind-popup"</span>&gt;</span><br><span class="line">  &lt;mt-picker :slots=<span class="string">"Minuteslots"</span> @change=<span class="string">"onRemindChange"</span> :show-toolbar=<span class="string">"true"</span> v-model=<span class="string">"remindMin"</span>&gt;</span><br><span class="line">  &lt;/mt-picker&gt;</span><br><span class="line">&lt;/mt-popup&gt;</span><br></pre></td></tr></table></figure></p>
+<p>能够从上边的代码可以看出picker结合了popup使用。在使用picker的时候，有一个参数为slots，这个参数就是picker的备选值都有哪些，同时可以设置picker默认选中项，那么slots的参数在data中是这样设置的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  <span class="function"><span class="title">data</span></span> () &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      Minuteslots: [&#123;</span><br><span class="line">        values: [<span class="string">'未设置'</span>, <span class="string">'15分钟'</span>, <span class="string">'60分钟'</span>, <span class="string">'一天'</span>],</span><br><span class="line">        defaultIndex: 1</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中defaultIndex就是默认值的在values中的index值，言外之意就是picker默认选中的就是’15分钟’。<br>有一个问题就是如果是一个提交信息的页面，并且还可以提交后进行编辑，那么将返回的数据为picker的默认值，这个时候就用到双向绑定,v-model了，设置了一个remindMin变量，因为后端返回的数据和前端picker显示的不同，所以使用computed进行转换，并改变defaultIndex来改变picker中的默认值（picker中高亮的部分）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    <span class="function"><span class="title">remindMin</span></span> () &#123;</span><br><span class="line">      switch(this.formObj.remindMinute) &#123;</span><br><span class="line">        <span class="keyword">case</span> 0:</span><br><span class="line">          this.Minuteslots[0].defaultIndex = 0</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'未设置'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> 15: </span><br><span class="line">          this.Minuteslots[0].defaultIndex = 1</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'15分钟'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> 60: </span><br><span class="line">          this.Minuteslots[0].defaultIndex = 2</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'60分钟'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> 1440: </span><br><span class="line">          this.Minuteslots[0].defaultIndex = 3</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'一天'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        default: </span><br><span class="line">          <span class="built_in">return</span> this.formObj.remindMinute</span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>那么就做到了，当有后端返回的时候，我们通过计算属性来改变当前的默认值以及显示。</p>
+<hr>
+<p>如果你有什么更好的方法，很开心能跟你交流，QQ:39004003 [笑脸]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/11/mint-picker/" data-id="cjt6r49kp0008k8r2mmhmloh4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/11/directive-defined/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          vue自定义指令
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/22/review-note12/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iView表单循环表单验证</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/主子路由/">主子路由</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/主子路由/" style="font-size: 10px;">主子路由</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/12/keepAlive/">动态改变组件的keepAlive的值</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/11/directive-defined/">vue自定义指令</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/11/mint-picker/">如何设置Mint UI中Picker中的默认值</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/22/review-note12/">iView表单循环表单验证</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/18/review-note11/">命名视图</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 WningLemon<br>
+      Powered by <a href="http://hexo.io/" target="_blank">WningLemon</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

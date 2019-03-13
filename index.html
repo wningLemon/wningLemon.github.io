@@ -62,6 +62,148 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-keepAlive" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/12/keepAlive/" class="article-date">
+  <time datetime="2019-03-12T07:30:21.000Z" itemprop="datePublished">2019-03-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/12/keepAlive/">动态改变组件的keepAlive的值</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>keepAlive的作用还是很大的，虽然在之前的总结中有说避开使用keepAlive,但是在app端的表单页面难免会有跳转到其他页面进行选择然后再返回到表单页面，虽然通过主子路由的方式，但是页面返回后表单并没有保存填过的信息。</p>
+<p>首先在app.vue根组件中，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;template v-if=<span class="string">"<span class="variable">$route</span>.meta.keepAlive"</span>&gt;</span><br><span class="line">  &lt;keep-alive&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">  &lt;/keep-alive&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;template v-else&gt;</span><br><span class="line">  &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+<p><router-view></router-view>是渲染组件（可以理解为此处是你的a.vue, b.vue等等），所以不难理解，若是组件在路由中定义时加上了keepAlive并且为true的情况下，那么该组件有将引入的keep-alive组件。</p>
+<p>在路由文件中这么写：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  name: <span class="string">'create'</span>,</span><br><span class="line">  path: <span class="string">'/create'</span>,</span><br><span class="line">  meta: &#123;title: <span class="string">'会议详情'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">  component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/create.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/create.vue'</span>))&#125;)&#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<p>在meta对象中添加keepAlive属性为true。</p>
+<p>通常情况下查看详情页和创建页面为一个，某些操作隐藏掉而已，所以会遇到一个问题，从列表页查看详情的时候，因为该页面添加了keep-alive组件，所以详情页并不会重新渲染，无论点击哪条进来详情都是第一页的内容。</p>
+<p>那么既然是路由中设置了keepAlive属性的问题，那就看看能不能动态改变。那么在进入创建页面的时候也就是离开上一个页面的时候能不能改变create页面的keepAlive属性呢。</p>
+<p>所以就在创建的页面之前的页面使用路由钩子函数这样处理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteLeave (to, from, next) &#123;</span><br><span class="line">  <span class="keyword">if</span>(this.isKeep) &#123;</span><br><span class="line">    to.meta.keepAlive = <span class="literal">true</span></span><br><span class="line">  &#125; <span class="keyword">else</span> to.meta.keepAlive = <span class="literal">false</span></span><br><span class="line">  next()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那到底是什么原因添加了keep-alive组件之后，组件将不会渲染，也只能用路由钩子函数来改变吗？所以又尝试了一下，那么每个组件都有生命周期函数，created、mounted、activated、distroyed，那么页面第一次进来的时候，created、mounted、activated都将打印，但是当第二次在进到创建页面的时候created、mounted钩子函数并没有执行，但是执行了activated钩子函数，所以说除了上边的处理方式以外，我们还可以将页面初始化的函数放在activated一份。</p>
+<hr>
+<p>如果你有什么更好的方法或者文章有不正确的内容，很开心能跟你交流，QQ:39004003 [笑脸]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/12/keepAlive/" data-id="cjt6r49kc0000k8r2z38obmtt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-directive-defined" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/11/directive-defined/" class="article-date">
+  <time datetime="2019-03-11T08:02:22.000Z" itemprop="datePublished">2019-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/11/directive-defined/">vue自定义指令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>vue中不止有v-if、v-else、v-model这样的指令，可自定义指令。项目中有一个搜索页面，进去之后获取焦点，使用input的autofocus属性，很奇怪的是第一次焦点在，但是第二次焦点就获取不上了。这个问题也一直没有找到原因，还在找原因，项目急就用了自定义指令的方法。<br>自己定义一下focus。有两种方式注册指令，一种是全局的一种是在组件内的（在组件内注册就类似于watch、filter的用法）。</p>
+<p>注册全局组件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import Vue from <span class="string">'vue'</span></span><br><span class="line"></span><br><span class="line">Vue.directive(<span class="string">'focus'</span>, &#123;</span><br><span class="line">  // 当被绑定的元素插入到 DOM 中时……</span><br><span class="line">  inserted: <span class="keyword">function</span> (el) &#123;</span><br><span class="line">    // 聚焦元素</span><br><span class="line">    el.focus()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>注册局部（组件内）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">directives: &#123;</span><br><span class="line">  focus: &#123;</span><br><span class="line">    // 指令的定义</span><br><span class="line">    inserted: <span class="keyword">function</span> (el) &#123;</span><br><span class="line">      el.focus()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在绑定函数的地方，传入一个参数el，el便是添加指令的地方获取的dom元素，比如说将该指令添加在input输入框中，那么el便是获取该DOM元素，所以若是想要改变元素的样式或者内容等等，可以写成el.style.color或el.innerHtml，等等一系列的DOM操作。</p>
+<p>然后在模板中使用该指令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> v-model=<span class="string">"inputValue"</span> placeholder=<span class="string">"搜索"</span> v-focus&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这样就无论如何input输入框一直都是在focus的状态了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/11/directive-defined/" data-id="cjt6r49kl0004k8r28vq2lmsa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mint-picker" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/11/mint-picker/" class="article-date">
+  <time datetime="2019-03-11T02:23:41.000Z" itemprop="datePublished">2019-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/11/mint-picker/">如何设置Mint UI中Picker中的默认值</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<h3 id="第一步：引入组件"><a href="#第一步：引入组件" class="headerlink" title="第一步：引入组件"></a>第一步：引入组件</h3><p>js部分引入依赖<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Popup, Picker&#125; from <span class="string">"mint-ui"</span>;</span><br><span class="line">Vue.component(Switch.name, Switch);</span><br><span class="line">Vue.component(Popup.name, Popup);</span><br></pre></td></tr></table></figure></p>
+<p>在模板中引入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;mt-popup v-model=<span class="string">"remindVisible"</span> position=<span class="string">"bottom"</span> class=<span class="string">"remind-popup"</span>&gt;</span><br><span class="line">  &lt;mt-picker :slots=<span class="string">"Minuteslots"</span> @change=<span class="string">"onRemindChange"</span> :show-toolbar=<span class="string">"true"</span> v-model=<span class="string">"remindMin"</span>&gt;</span><br><span class="line">  &lt;/mt-picker&gt;</span><br><span class="line">&lt;/mt-popup&gt;</span><br></pre></td></tr></table></figure></p>
+<p>能够从上边的代码可以看出picker结合了popup使用。在使用picker的时候，有一个参数为slots，这个参数就是picker的备选值都有哪些，同时可以设置picker默认选中项，那么slots的参数在data中是这样设置的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  <span class="function"><span class="title">data</span></span> () &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      Minuteslots: [&#123;</span><br><span class="line">        values: [<span class="string">'未设置'</span>, <span class="string">'15分钟'</span>, <span class="string">'60分钟'</span>, <span class="string">'一天'</span>],</span><br><span class="line">        defaultIndex: 1</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中defaultIndex就是默认值的在values中的index值，言外之意就是picker默认选中的就是’15分钟’。<br>有一个问题就是如果是一个提交信息的页面，并且还可以提交后进行编辑，那么将返回的数据为picker的默认值，这个时候就用到双向绑定,v-model了，设置了一个remindMin变量，因为后端返回的数据和前端picker显示的不同，所以使用computed进行转换，并改变defaultIndex来改变picker中的默认值（picker中高亮的部分）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    <span class="function"><span class="title">remindMin</span></span> () &#123;</span><br><span class="line">      switch(this.formObj.remindMinute) &#123;</span><br><span class="line">        <span class="keyword">case</span> 0:</span><br><span class="line">          this.Minuteslots[0].defaultIndex = 0</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'未设置'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> 15: </span><br><span class="line">          this.Minuteslots[0].defaultIndex = 1</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'15分钟'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> 60: </span><br><span class="line">          this.Minuteslots[0].defaultIndex = 2</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'60分钟'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> 1440: </span><br><span class="line">          this.Minuteslots[0].defaultIndex = 3</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'一天'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        default: </span><br><span class="line">          <span class="built_in">return</span> this.formObj.remindMinute</span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>那么就做到了，当有后端返回的时候，我们通过计算属性来改变当前的默认值以及显示。</p>
+<hr>
+<p>如果你有什么更好的方法，很开心能跟你交流，QQ:39004003 [笑脸]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/11/mint-picker/" data-id="cjt6r49kp0008k8r2mmhmloh4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-review-note12" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/22/review-note12/" class="article-date">
@@ -104,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/22/review-note12/" data-id="cjr8mpqph0000vkr2eqhz0e4m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/22/review-note12/" data-id="cjt6r49km0005k8r2hpopp3tq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -157,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/18/review-note11/" data-id="cjr8mpqpn0002vkr25mjo0m1l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/18/review-note11/" data-id="cjt6r49kk0003k8r24l9i4y1q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -214,7 +356,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/18/review-note10/" data-id="cjr8mpqqf000bvkr2gj3yvhsh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/18/review-note10/" data-id="cjt6r49kj0002k8r2yjxkvfqr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -257,7 +399,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/15/review-note8/" data-id="cjr8mpqq50006vkr2lwn3yg3o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/15/review-note8/" data-id="cjt6r49kr000ak8r2rnjaax35" class="article-share-link">Share</a>
       
       
     </footer>
@@ -299,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjr8mpqqe000avkr2eq3gh43h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjt6r49lk000ek8r2yvrcmvnh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主子路由/">主子路由</a></li></ul>
@@ -347,7 +489,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjr8mpqqu000dvkr2ci8jlgnq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjt6r49ko0007k8r22apmajft" class="article-share-link">Share</a>
       
       
     </footer>
@@ -390,167 +532,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjr8mpqqc0009vkr26ig15lnu" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-review-note4" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/23/review-note4/" class="article-date">
-  <time datetime="2018-11-23T03:37:13.000Z" itemprop="datePublished">2018-11-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/23/review-note4/">调试工具的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>开发怎么能离开调试工具，感谢浏览器的开发者调试工具，不墨迹来了。</p>
-<h2 id="1-F12调试"><a href="#1-F12调试" class="headerlink" title="1.F12调试"></a>1.F12调试</h2><p>1、打开开发者调试工具<br>    通过以下方式打开开发者调试工具：<br>    ① 在网页上右键选择“检查”<br>    ② 快捷键 F12<br>    ③ Ctrl+shift+i<br>    ④ 找到浏览器右上角的三个点，找到更多工具，然后选择开发者工具<br>开发者调试工具打开后的，如图：<br><img src="/2018/11/23/review-note4/chrome1.png" alt="chrome1"></p>
-<h2 id="2-导航条部分功能使用"><a href="#2-导航条部分功能使用" class="headerlink" title="2.导航条部分功能使用"></a>2.导航条部分功能使用</h2><p> ①快速找到页面中某个节点，利用导航条最左端的小图标点击后变成蓝色，在界面的左侧就是“页面显示部分”鼠标停留的部分会变成高亮，点击时“调试工具显示部分”会显示被点击的节点的dom元素会高亮显示以及显示样式，如图:<br><img src="/2018/11/23/review-note4/chrome2.jpg" alt="chrome2"></p>
-<p>过开发者调试工具可以模拟移动端的界面，找到导航条中选中元素图标右边的矩形叠加小图标，点击，页面显示部分显示移动端的样式，如图：<br><img src="/2018/11/23/review-note4/chrome3.png" alt="chrome3"><br>③ 在①的图中看到开发者调试工具的页面看到是在右侧，在导航条部门找到三个点（不是浏览器的点），在弹出框部门选择模式，如图：<br><img src="/2018/11/23/review-note4/chrome4.png" alt="chrome4"><br>当前是在右侧，第一个是调试工具界面与页面显示部分分离出来。</p>
-<h2 id="3-Elements的使用"><a href="#3-Elements的使用" class="headerlink" title="3.Elements的使用"></a>3.Elements的使用</h2><p>在导航条中选择Elements，在标号为1的区域显示dom树结构，2区域显示样式，3为盒子模型，最中间显示的是左侧页面显示部分高亮元素的宽和高，绿色部分是pading的值，其次黄色是border和橙色是margin。<br><img src="/2018/11/23/review-note4/chrome5.jpg" alt="chrome5"></p>
-<p>在标号为2的区域中elements.style添加样式，可以在线调试样式，在该处添加样式会直接添加到行内样式中，所以优先级最高，如果在文件中已经定义了样式，不生效，在此处添加生效，那就要需要查看在页面中添加样式的优先级问题了。<br><img src="/2018/11/23/review-note4/chrome6.jpg" alt="chrome6"></p>
-<p>还可以通过Elements下载图片，找到图片的对应的节点，鼠标悬在图片节点上，会显示该图片，如下图，在图片的地址位置右键，在弹出的菜单选项中选择open in new tabs这样该图片显示new一个新的窗口页，即可下载<br><img src="/2018/11/23/review-note4/chrome7.jpg" alt="chrome7"></p>
-<h2 id="4-console的使用"><a href="#4-console的使用" class="headerlink" title="4.console的使用"></a>4.console的使用</h2><p>通常情况下我们想要打印一些信息就在页面中写console.log(data)等显示在此处，除此之外，也可以查看一些基础的知识或者演示一些代码，如：<br><img src="/2018/11/23/review-note4/chrome8.jpg" alt="chrome8"><br>返回了window下的所有属性，或者知识演示一些代码，如图:<br><img src="/2018/11/23/review-note4/chrome9.png" alt="chrome9"><br>熟知的是console.log()打印一般的日志，还有console.error()显示带有红色小图标的红色错误信息，console.warn()显示带有黄色小图标的警告信息。如图：<br><img src="/2018/11/23/review-note4/chrome1010.png" alt="chrome1010"></p>
-<h2 id="5-Sources的使用"><a href="#5-Sources的使用" class="headerlink" title="5.Sources的使用"></a>5.Sources的使用</h2><p>可以在这个面板显示当前项目的结构，选择一个项目可以进行调试js代码，如图:<br><img src="/2018/11/23/review-note4/chrome10.jpg" alt="chrome10"><br>左侧显示项目的结构，我们通过该面板本地的js代码，也可以调试远程的js代码，可以通过选择文件的名字打开文件或者用面板中间部分提示的快捷键打开文件，打开 一个文件，在面板的中间部分，显示全部文件信息，可以通过点击在js部分每行前边的序号添加断点，如图：<br><img src="/2018/11/23/review-note4/chrome11.jpg" alt="chrome11"><br>刷新页面后：<br><img src="/2018/11/23/review-note4/chrome12.jpg" alt="chrome12"><br>在执行第一个断点的方法时，页面显示部分如上图左侧显示，右侧画框的部分显示全部的断点，在一个断点的时候，可以通过查看变量的值，如;<br><img src="/2018/11/23/review-note4/chrome13.jpg" alt="chrome13"><br>将鼠标悬在左侧红色的框内，则会显示该变量的值，也可以通过在右侧的watch里添加需要监听的变量，点击加号，输入需要观察的变量名称后回车，即添加成功，若该变量实时变化watch中的变量也会实时变化，也可以添加多个需要监听的变量。同样也可以通过在source面板中添加自己的debugger代码。<br>在面板的右上角<br><img src="/2018/11/23/review-note4/chrome14.png" alt="chrome14"><br>有这样的几个小图标，分别是:<br>第1个：放行，停止该行代码的调试<br>第2个：不跳入函数中去，继续执行下一行代码（F10）<br>第3个：跳入函数中去（F11）<br>第4个：从执行的函数中跳出<br>第5个：禁用所有的断点，不做任何调试<br>第6个：程序运行时遇到异常时是否中断的开关</p>
-<h2 id="6-Network的使用"><a href="#6-Network的使用" class="headerlink" title="6.Network的使用"></a>6.Network的使用</h2><pre><code>在进行向接口请求数据或者提交数据的时候，需要使用到network面板，如：
-</code></pre><p>  <img src="/2018/11/23/review-note4/chrome15.jpg" alt="chrome15"><br>  目前network监听全部的请求，在面板左侧选择要查看的接口，点击后，可以看到面板右侧Headers的内容，包括一些请求地址、http请求状态，请求头以及传递的参数，提交数据的时候避免是出错要认真核对，切换选项卡到preview，查看接口返回的数据，如图：<br>   <img src="/2018/11/23/review-note4/chrome16.jpg" alt="chrome16"><br>   在这里师父交了一个大招，就是在监听media类型的时候，点击qq或者网易云音乐的音乐文件时候，在请求列表会显示请求的音乐，open in new tabs后既可以下载音乐了，再也不用买会员啦。</p>
-<p>##7.Application的使用<br>在Application可以查看存在浏览器中的全局信息，如图：<br><img src="/2018/11/23/review-note4/chrome18.png" alt="chrome18"><br>用到最多的就是左侧红色圈住的部分，当前查看的是存在localstorage中的信息，如上图的右侧，无论是哪一种存储机制，都是键值对的形式。</p>
-<h2 id="8-附加插件的使用"><a href="#8-附加插件的使用" class="headerlink" title="8.附加插件的使用"></a>8.附加插件的使用</h2><pre><code>项目开发使用vue框架，在chrome扩展插件中安装vue插件何乐而不为呢。首先利用蓝灯翻墙，然后在chrome的应用中搜索vue，如图：
-</code></pre><p><img src="/2018/11/23/review-note4/chrome20.jpg" alt="chrome20"><br>并选择添加，添加成功后，刷新浏览器，会在导航条部分出现<span style="color:blue">Vue</span><br>切换了，切换到vue面板中，如图：<br><img src="/2018/11/23/review-note4/chrome21.jpg" alt="chrome21"><br>在面板左侧显示，当前页面中所有的组件，<app>便是App.vue根组件，所有的组件都渲染在根组件的<router-view></router-view>中，展开<app>的箭头，会看到app下所有组件的名称，选择一个组件查看，可以查看到右侧的该组件的信息。也可以切换查看该组件的企业信息，比如Vuex状态管理器中的数据或者查看组件都执行了哪些事件，使vue的开发更加方便。</app></app></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/23/review-note4/" data-id="cjr8mpqq30005vkr243fodmze" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-review-note2" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/22/review-note2/" class="article-date">
-  <time datetime="2018-11-22T09:31:37.768Z" itemprop="datePublished">2018-11-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/review-note2/">路由传参的几种方式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>组件跳转的时候，下一个组件有的时候会需要前一个页面的一些参数。比如说相同的组件但是要根据不同的角色请求不同的接口等等。有几种路由传递参数的方式：</p>
-<h3 id="（1）通过url路径来传递参数-不太知道如何定义类型"><a href="#（1）通过url路径来传递参数-不太知道如何定义类型" class="headerlink" title="（1）通过url路径来传递参数(不太知道如何定义类型)"></a>（1）通过url路径来传递参数(不太知道如何定义类型)</h3><p>那么通过url路径在浏览器中显示为：<em><a href="http://localhost:8079/#/detail/333" target="_blank" rel="noopener">http://localhost:8079/#/detail/333</a></em><br>detail是我要跳转的页面/后面333就是我要传递的参数，若是使用这种方式来传递参数的时候，我们需要在路由的文件中来修改一下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// detail后面添加/:id, id代表传过来的参数名为id</span><br><span class="line">&#123; path: <span class="string">'/detail/:id'</span>, name: <span class="string">'detail'</span>, meta: &#123;title: <span class="string">'办事详情'</span>&#125;, component: detail &#125;</span><br></pre></td></tr></table></figure></p>
-<p>在跳转路由的时候有两种方式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$router</span>.push(&#123;path: <span class="string">'/detail/333'</span>&#125;);    // 在js的方法中</span><br><span class="line"></span><br><span class="line">&lt;router-link :to=<span class="string">"&#123;path: '/detail/333'&#125;"</span>&gt;&lt;/router-link&gt;  // 在组件中使用&lt;router-link&gt;标签</span><br></pre></td></tr></table></figure></p>
-<p>那么我们在detail组件中通过以下的方式来获取参数id的值<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$route</span>.params.id</span><br></pre></td></tr></table></figure></p>
-<p>*注意：路由跳转的时候是router，获取路由参数的时候是route</p>
-<h3 id="（2）通过query来传递参数"><a href="#（2）通过query来传递参数" class="headerlink" title="（2）通过query来传递参数"></a>（2）通过query来传递参数</h3><p>通过query传递参数的时候，在浏览器显示则为：<em><a href="http://localhost:8079/#/detail?id=333" target="_blank" rel="noopener">http://localhost:8079/#/detail?id=333</a></em><br>会拼接在url的问号后面，这种方式不用修改路由的文件，写成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; path: <span class="string">'/detail'</span>, name: <span class="string">'detail'</span>, meta: &#123;title: <span class="string">'办事详情'</span>&#125;, component: detail &#125;,</span><br></pre></td></tr></table></figure></p>
-<p>那么在跳转路由的时候写成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$router</span>.push(&#123;path: <span class="string">'/detail'</span>, query: &#123;id: 333&#125;&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>在获取参数id的时候，写法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$route</span>.query.id</span><br></pre></td></tr></table></figure></p>
-<h3 id="（2）通过pararms来传递参数"><a href="#（2）通过pararms来传递参数" class="headerlink" title="（2）通过pararms来传递参数"></a>（2）通过pararms来传递参数</h3><p>通过pararms传递参数的时候，在浏览器显示则为：<em><a href="http://localhost:8079/#/detail" target="_blank" rel="noopener">http://localhost:8079/#/detail</a></em><br>也就是说这种传递参数的方式不会在url显示出来。并且这种方式不用修改路由的文件，写法参见方法二</p>
-<p>那么在跳转路由的时候写成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$router</span>.push(&#123;name: <span class="string">'detail'</span>, params: &#123;id: 333&#125;&#125;);</span><br><span class="line">// 注意哦，看着跟方法二很像，差别有两个：</span><br><span class="line">push对象中path改成name，对应跳转组件的name；</span><br><span class="line">第二个参数对象名称为params</span><br></pre></td></tr></table></figure></p>
-<p>在获取参数id的时候，写法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$route</span>.params.id</span><br></pre></td></tr></table></figure></p>
-<p>———————美丽的分割线———————<br>ps：以上都是开始学习vue的时候做的笔记，最近整理到博客上，也发现了其中的一些不足，慢慢完善</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/22/review-note2/" data-id="cjr8mpqq00003vkr2l9qath4v" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-review-note" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/20/review-note/" class="article-date">
-  <time datetime="2018-11-20T03:46:12.000Z" itemprop="datePublished">2018-11-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/20/review-note/">初学vue总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer">
-
-<h2 id="1-tempele"><a href="#1-tempele" class="headerlink" title="1.tempele"></a>1.tempele</h2><p>template不仅是模板最外面的标签，同时，它也可以作为一个普通的标签使用，为了保证ul-li结构下能够使子组件与li同级，写法如下：<br><img src="/2018/11/20/review-note/template.jpg" alt="1.在不破坏ul li固定搭配下引入新标签"></p>
-<p>可以使用 v-if 来控制部分区域的显示与隐藏时:</p>
-<p><img src="/2018/11/20/review-note/template2.jpg" alt="2.用 v-if 来控制部分区域的显示与隐藏"></p>
-<h5 id="template不能与v-show一起使用"><a href="#template不能与v-show一起使用" class="headerlink" title="*template不能与v-show一起使用"></a><font color="#FF0000">*template不能与v-show一起使用</font></h5><h2 id="2-子组件索引"><a href="#2-子组件索引" class="headerlink" title="2.子组件索引"></a>2.子组件索引</h2><p>可以使用 ref 为子组件指定一个索引 ID，被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的$refs对象。如果在普通的DOM上使用，引用指向的就是DOM元素；如果用在子组件上，引用指向组件实例：</p>
-<h3 id="1-在普通页面使用时"><a href="#1-在普通页面使用时" class="headerlink" title="(1)在普通页面使用时"></a>(1)在普通页面使用时</h3><p><img src="/2018/11/20/review-note/child1.jpg" alt="3.在普通页面使用索引时"></p>
-<p>在子组件上使用时：<br><img src="/2018/11/20/review-note/child2.jpg" alt="4.在子组件上使用时"><br><img src="/2018/11/20/review-note/child3.png" alt="5.在子组件上使用时"><br>在父组件中使用子组件的方法，首先引用对象是this，其次由于页面使用v-for来渲染子组件，ref便是一个数组，通过被点击的index值来确定执行哪一个子组件的open方法。</p>
-<h2 id="3-传值"><a href="#3-传值" class="headerlink" title="3.传值"></a>3.传值</h2><p>(1)$emit传值<br>    子组件给父组件传值,this.$emit(fun,pram)第一个参数为事件名，第二个参数为传入的数据，可以为对象，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">submit</span></span> () &#123;</span><br><span class="line">  this.<span class="variable">$emit</span>(<span class="string">'inp'</span>, &#123;value: this.msg. imgs: [<span class="string">'img1'</span>, <span class="string">'img2'</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;child ref=<span class="string">"in"</span> v-model=<span class="string">"li.state"</span> :str=<span class="string">"str"</span> @inp=<span class="string">"inp"</span>&gt;&lt;/child&gt;</span><br></pre></td></tr></table></figure>
-<p>在父组件引用子组件时添加一个函数，v-on:function = “function1”,其中function是在子组件使用的函数，function1是在父组件使用函数，相当于在子组件间触发方法inp时，父组件也将执行自身的inp方法。</p>
-<p>(2)props传值<br> 父组件给子组件传值，在子组件页面，在props属性中定义一个变量，声明变量的类型，访问时如同data属性中生命的变量一样，this.propA。<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">props:[<span class="string">'propA'</span>]</span><br></pre></td></tr></table></figure></p>
-<p>又或者写成<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">props:&#123;</span><br><span class="line">  propA: &#123;</span><br><span class="line">    <span class="built_in">type</span>: String,</span><br><span class="line">    required: <span class="literal">true</span></span><br><span class="line">  &#125;, </span><br><span class="line">  propB: &#123;</span><br><span class="line">    <span class="built_in">type</span>: Number,</span><br><span class="line">    default: 100</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>props可为数组亦可为对象，其实在props定义的变量就等于像在data函数中定义的变量，若是在props对象中定义的变量可以添加该变量的规定类型、默认值等一些校验。当 prop 验证失败的时候，(开发环境构建版本的) Vue 将会产生一个控制台的警告。</p>
-<h2 id="4-v-model"><a href="#4-v-model" class="headerlink" title="4.v-model"></a>4.v-model</h2><h3 id="1-场景一：v-model在input元素中的使用"><a href="#1-场景一：v-model在input元素中的使用" class="headerlink" title="(1)场景一：v-model在input元素中的使用"></a>(1)场景一：v-model在input元素中的使用</h3><p> 能够让p标签中的文字为输入框中实时输入的文字，首先在实例中声明变量，可以给一个默认值，也可为空；在模板中将p标签的文本内容用&#123;&#123; &#125;&#125;进行数据绑定，在输入框中用v-model绑定实例中声明的变量，实现数据的双向绑定，如下图:<br> <img src="/2018/11/20/review-note/model1.png"><br> <img src="/2018/11/20/review-note/model2.png"><br> <img src="/2018/11/20/review-note/model3.png"><br>事实上，在input标签中为如下图的缩写：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input v-bind:value=<span class="string">"message"</span> v-on:input=<span class="string">"message = <span class="variable">$event</span>.target.value"</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<p>要想能够使v-model生效，<font color="#58B1DE">接受一个 value 属性，在有新的值时触发 input 事件，input事件是html5新添加事件，每当输入框（input或textarea）的内容发生改变时，就会触发并将值传给message。</font></p>
-<h3 id="1-场景二：v-model在组件上的使用"><a href="#1-场景二：v-model在组件上的使用" class="headerlink" title="(1)场景二：v-model在组件上的使用"></a>(1)场景二：v-model在组件上的使用</h3><p>更改子组件的值能实时更新父组件的值，在子组件中将值传给父组件，利用emit事件传值，用input作为触发事件的事件名，因为在子组件中的textarea的内容发生改变时，触发该事件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$emit</span>(<span class="string">'input'</span>, &#123;value: this.msg, imgs:[<span class="string">'image1'</span>, <span class="string">'image2'</span>]&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>在子组件中添加v-model属性时，默认会把value作为子组件的属性。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;child v-model=<span class="string">"li.state"</span>&gt;&lt;/child&gt;</span><br></pre></td></tr></table></figure></p>
-<p>——————————–分割线——————————–</p>
-<h4 id="对input事件以及父子组件之间传值的理解"><a href="#对input事件以及父子组件之间传值的理解" class="headerlink" title="对input事件以及父子组件之间传值的理解"></a>对input事件以及父子组件之间传值的理解</h4><p>(1)父子组件传值<br>若在子组件，emit写法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$emit</span>(<span class="string">'inp'</span>, &#123;value: this.msg, imgs:[<span class="string">'image1'</span>, <span class="string">'image2'</span>]&#125;)</span><br><span class="line"></span><br><span class="line">// 在父组件引用子组件如下：</span><br><span class="line">&lt;child v-model=<span class="string">"li.state"</span> @inp=<span class="string">"inp"</span>&gt;&lt;/child&gt;</span><br><span class="line"></span><br><span class="line">// 父组件中inp事件如下：</span><br><span class="line">inp (data) &#123;</span><br><span class="line">  console.log(data)</span><br><span class="line">&#125;</span><br><span class="line">data便是emit事件的参数，并且将会把值传给li.state结果是：&#123;value: <span class="string">'111'</span>, imgs: Array(2)&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/11/20/review-note/model4.png"><br>(2)对input事件的思考<br>若子组件，emit写法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$emit</span>(<span class="string">'input'</span>, &#123;value: this.msg, imgs:[<span class="string">'image1'</span>, <span class="string">'image2'</span>]&#125;)</span><br><span class="line">// 父组件下写法如下</span><br><span class="line">&lt;child v-model=<span class="string">"li.state"</span> @input=<span class="string">"inp"</span>&gt;&lt;/child&gt;</span><br></pre></td></tr></table></figure></p>
-<p>当<child>子组件为input或textarea元素时，用v-model绑定在父组件中<child>子组件时，emit事件以input为触发事件名，将返回的结果添加到input元素或textarea元素的value属性上，页面中声明的inp事件与本身子组件的内容发生改变所触发的input事件叠加，那么这个时候打印的date便是子组件中的value值，打印结果如下：<br> <img src="/2018/11/20/review-note/model5.png"></child></child></p>
-<h2 id="5-父子组件之间的双向绑定"><a href="#5-父子组件之间的双向绑定" class="headerlink" title="5.父子组件之间的双向绑定"></a>5.父子组件之间的双向绑定</h2> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> &lt;child v-model=<span class="string">"li.state"</span> @inp=<span class="string">"inp"</span> :str=<span class="string">"str"</span>&gt;&lt;/child&gt;</span><br><span class="line"> // 在子组件中的props属性定义一个变量，变量的名字随意，类型需要确定，如下：</span><br><span class="line"> props: &#123;</span><br><span class="line">   str: String,</span><br><span class="line">   value: Object</span><br><span class="line"> &#125;</span><br><span class="line">在子组件mounted方法时将值对页面中需要绑定的变量进行绑定，当父组件中的value有值时，将值赋值给子组件的变量，如下：</span><br><span class="line"><span class="function"><span class="title">mounted</span></span> () &#123;</span><br><span class="line">  <span class="keyword">if</span> (this.value) this.msg = this.value.value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-watch监听"><a href="#6-watch监听" class="headerlink" title="6.watch监听"></a>6.watch监听</h2><p>  当父组件中的值动态改变时，子组件需要监听才能进行实时改变，例如在父组件中设定一个延迟器，延迟改变值，如下：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="title">mounted</span></span> () &#123;</span><br><span class="line">  setTimeout (() =&gt; &#123;</span><br><span class="line">    this.list[0].status.value  = <span class="string">'异步'</span></span><br><span class="line">  &#125;, 2000)</span><br><span class="line">&#125;</span><br><span class="line">// 在子组件中就需要利用监听事件，写法如下：</span><br><span class="line">watch: &#123;</span><br><span class="line">  <span class="string">'value.value'</span> (val) &#123;</span><br><span class="line">    <span class="keyword">if</span> (val) this.msg = val.value</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 由于数组结构如下，为了监听value值的变化，所以是value对象中的value属性，如果有值将值渲染到页面中</span><br><span class="line">list: [&#123;name:<span class="string">'任务'</span>, status: &#123;value: <span class="string">'222'</span>, imgs: []&#125;&#125;]</span><br></pre></td></tr></table></figure></p>
-<p>上边是watch监听一个属性，也可以监听一个对象，写法如下：<br><code>`</code><br>watch: {<br>  value: {<br>    handler: function (val) {<br>      if (val) this.msg = val.value<br>    },<br>    deep: true<br>  }<br>}</p>
-<h2 id="7-当-v-if-与-v-for-一起使用时，v-for-具有比-v-if-更高的优先级"><a href="#7-当-v-if-与-v-for-一起使用时，v-for-具有比-v-if-更高的优先级" class="headerlink" title="7.当 v-if 与 v-for 一起使用时，v-for 具有比 v-if 更高的优先级"></a>7.当 v-if 与 v-for 一起使用时，v-for 具有比 v-if 更高的优先级</h2><p>———————美丽的分割线———————<br>ps：以上都是开始学习vue的时候做的笔记，最近整理到博客上，也发现了其中的一些不足，慢慢完善</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/20/review-note/" data-id="cjr8mpqq20004vkr2db8zcqf6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjt6r49ll000fk8r27e5bklpx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -597,7 +579,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
     </div>
   </div>
 
@@ -610,23 +592,23 @@
       <ul>
         
           <li>
+            <a href="/2019/03/12/keepAlive/">动态改变组件的keepAlive的值</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/11/directive-defined/">vue自定义指令</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/11/mint-picker/">如何设置Mint UI中Picker中的默认值</a>
+          </li>
+        
+          <li>
             <a href="/2019/01/22/review-note12/">iView表单循环表单验证</a>
           </li>
         
           <li>
             <a href="/2019/01/18/review-note11/">命名视图</a>
-          </li>
-        
-          <li>
-            <a href="/2019/01/18/review-note10/">微信朋友圈全文、收起功能实现</a>
-          </li>
-        
-          <li>
-            <a href="/2019/01/15/review-note8/">map方法</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/29/review-note7/">主子路由你想不到的用处</a>
           </li>
         
       </ul>
