@@ -5,15 +5,19 @@
   
 
   
-  <title>Archives: 2018/11 | WningLemon</title>
+  <title>利用map解构返回数据格式 | WningLemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="WningLemon">
-<meta property="og:url" content="http://yoursite.com/archives/2018/11/index.html">
+  <meta name="description" content="有的时候后端返回的字段并不是我们需要的，比如1.渲染一个select，那么option接受的属性名称是固定的，2.或者有一个可复用的列表页，可复用的列表将不改变模板中的变量，那么就需要在调用接口的地方将返回的数据名称进行改变  很简单，我们利用map对返回结果进行操作，map不会改变原数组会生成一个新的数组 123let newArr = oldArr.map(it =&amp;gt; (&amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用map解构返回数据格式">
+<meta property="og:url" content="http://yoursite.com/2019/05/05/map-note/index.html">
 <meta property="og:site_name" content="WningLemon">
+<meta property="og:description" content="有的时候后端返回的字段并不是我们需要的，比如1.渲染一个select，那么option接受的属性名称是固定的，2.或者有一个可复用的列表页，可复用的列表将不改变模板中的变量，那么就需要在调用接口的地方将返回的数据名称进行改变  很简单，我们利用map对返回结果进行操作，map不会改变原数组会生成一个新的数组 123let newArr = oldArr.map(it =&amp;gt; (&amp;#123;">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-24T09:20:44.706Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WningLemon">
+<meta name="twitter:title" content="利用map解构返回数据格式">
+<meta name="twitter:description" content="有的时候后端返回的字段并不是我们需要的，比如1.渲染一个select，那么option接受的属性名称是固定的，2.或者有一个可复用的列表页，可复用的列表将不改变模板中的变量，那么就需要在调用接口的地方将返回的数据名称进行改变  很简单，我们利用map对返回结果进行操作，map不会改变原数组会生成一个新的数组 123let newArr = oldArr.map(it =&amp;gt; (&amp;#123;">
   
     <link rel="alternate" href="/atom.xml" title="WningLemon" type="application/atom+xml">
   
@@ -60,116 +64,56 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/23/review-note4/" class="archive-article-date">
-  <time datetime="2018-11-23T03:37:13.000Z" itemprop="datePublished">Nov 23</time>
+        <section id="main"><article id="post-map-note" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/05/map-note/" class="article-date">
+  <time datetime="2019-05-05T10:14:40.000Z" itemprop="datePublished">2019-05-05</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/23/review-note4/">调试工具的使用</a>
+    <h1 class="article-title" itemprop="name">
+      利用map解构返回数据格式
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/22/review-note2/" class="archive-article-date">
-  <time datetime="2018-11-22T09:31:37.768Z" itemprop="datePublished">Nov 22</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/22/review-note2/">路由传参的几种方式</a>
-    </h1>
-  
+        <meta name="referrer" content="no-referrer">
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/20/review-note/" class="archive-article-date">
-  <time datetime="2018-11-20T03:46:12.000Z" itemprop="datePublished">Nov 20</time>
-</a>
+<p>有的时候后端返回的字段并不是我们需要的，比如<br>1.渲染一个select，那么option接受的属性名称是固定的，<br>2.或者有一个可复用的列表页，可复用的列表将不改变模板中的变量，那么就需要在调用接口的地方将返回的数据名称进行改变</p>
+<p> 很简单，我们利用map对返回结果进行操作，map不会改变原数组会生成一个新的数组</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> newArr = oldArr.map(it =&gt; (&#123;value:it.subjectType, label:it.subjectName&#125;))</span><br><span class="line">或结构对象的方式：</span><br><span class="line"><span class="built_in">let</span> newArr = oldArr.map(&#123;subjectType, subjectName&#125; =&gt; (&#123;value:subjectType, label:subjectName&#125;))</span><br></pre></td></tr></table></figure>
+
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/20/review-note/">初学vue总结</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/17/hello/" class="archive-article-date">
-  <time datetime="2018-11-17T06:56:23.035Z" itemprop="datePublished">Nov 17</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/05/map-note/" data-id="cjw1vntgq0002jor2w976ihhi" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/17/hello/">vue-resource怎么写服务类</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/16/hello-world/" class="archive-article-date">
-  <time datetime="2018-11-16T02:16:00.239Z" itemprop="datePublished">Nov 16</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/16/hello-world/">欢迎来踩踩</a>
-    </h1>
-  
-
-    </header>
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/03/12/keepAlive/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">动态改变组件的keepAlive的值</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         

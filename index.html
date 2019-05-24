@@ -62,6 +62,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-map-note" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/05/map-note/" class="article-date">
+  <time datetime="2019-05-05T10:14:40.000Z" itemprop="datePublished">2019-05-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/05/map-note/">利用map解构返回数据格式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>有的时候后端返回的字段并不是我们需要的，比如<br>1.渲染一个select，那么option接受的属性名称是固定的，<br>2.或者有一个可复用的列表页，可复用的列表将不改变模板中的变量，那么就需要在调用接口的地方将返回的数据名称进行改变</p>
+<p> 很简单，我们利用map对返回结果进行操作，map不会改变原数组会生成一个新的数组</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> newArr = oldArr.map(it =&gt; (&#123;value:it.subjectType, label:it.subjectName&#125;))</span><br><span class="line">或结构对象的方式：</span><br><span class="line"><span class="built_in">let</span> newArr = oldArr.map(&#123;subjectType, subjectName&#125; =&gt; (&#123;value:subjectType, label:subjectName&#125;))</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/05/map-note/" data-id="cjw1vntgq0002jor2w976ihhi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-keepAlive" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/12/keepAlive/" class="article-date">
@@ -103,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/12/keepAlive/" data-id="cjt6r49kc0000k8r2z38obmtt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/12/keepAlive/" data-id="cjw1vntgo0001jor2r1pm3qeb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -148,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/directive-defined/" data-id="cjt6r49kl0004k8r28vq2lmsa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/directive-defined/" data-id="cjw1vnthd0008jor2tbxh4u7a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -194,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/mint-picker/" data-id="cjt6r49kp0008k8r2mmhmloh4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/mint-picker/" data-id="cjw1vntgs0003jor26w77npxp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -246,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/22/review-note12/" data-id="cjt6r49km0005k8r2hpopp3tq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/22/review-note12/" data-id="cjw1vnthc0006jor2kyoecui4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -299,7 +340,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/18/review-note11/" data-id="cjt6r49kk0003k8r24l9i4y1q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/18/review-note11/" data-id="cjw1vnthd0007jor2yw7h7icl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -356,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/18/review-note10/" data-id="cjt6r49kj0002k8r2yjxkvfqr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/18/review-note10/" data-id="cjw1vnthg000bjor2ckyfo1nx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -399,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/15/review-note8/" data-id="cjt6r49kr000ak8r2rnjaax35" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/15/review-note8/" data-id="cjw1vnthn000fjor2jivab9jz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -441,7 +482,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjt6r49lk000ek8r2yvrcmvnh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjw1vnthf000ajor202hhwjh4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主子路由/">主子路由</a></li></ul>
@@ -489,50 +530,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjt6r49ko0007k8r22apmajft" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-review-note5" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/05/review-note5/" class="article-date">
-  <time datetime="2018-12-05T07:33:42.000Z" itemprop="datePublished">2018-12-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/05/review-note5/">代码提交、vscode的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer">
-
-<p>在项目开发中学会提交代码是不能缺少的技能之一。首先是在本地创建git仓库，如果是单纯自己的文件想要上传到github上的话，在需要上传的文件的文件夹右键菜单中有一个选项”git Bash Here”打开git控制台输入”git init”这时候会发现所在的文件夹多出一个文件，如图：<br><img src="/2018/12/05/review-note5/git1.png" alt="1.git初始化"></p>
-<p>看到.git文件就是本地仓库已经创建好了。如果是开发项目的情况下，将项目从远程下载下来可以通过git clone的方式，如：<br><img src="/2018/12/05/review-note5/git2.png" alt="2.克隆项目"></p>
-<p>首先进入到项目将要放置的地址，然后执行git clone命令，通过这种方式既可以把远程项目下载到本地也可以在项目中创建本地仓库。两种创建本地仓库的方式。<br>    下面就是进入到项目的开发阶段，为了不破坏master主干上的代码，需要先创建自己的开发分支。<br>    第一步：创建分支dev分支  git branch dev<br>    第二步： 切换到dev分支  git checkout dev<br>  前两步操作可以一步操作进行： git checkout -b dev 加上-b参数表示创建并切换分支<br>  第三步：提交文件，提交文件分为两步，<br>    ①git add 文件名 或者是 git add * （提交文件夹中的所有文件）       //将文件提交到暂存区，并没有提交到远程<br>    ②git commit -m “message”    //将文件提交到本地仓库   -m参数用于添加提交文件的备注信息<br>       ③将文件提交到远程 git push<br>   以上这么麻烦的命令行，让我能够知道提交代码发生的过程，目前在开发项目中用vscode编辑器，提交代码再也不用担心，如果要提交代码时，首先选择自己的开发分支，界面左下角的位置在界面顶部弹出框中选择分支或创建分支，界面左下角显示当前分支，如下图：<br><img src="/2018/12/05/review-note5/git3.jpg" alt="3.vscode切换分支"></p>
-<p>第二步，提交文件时点击界面左侧菜单栏分支按钮，显示有几个文件有更改，右侧显示更改的文件名称，<br><img src="/2018/12/05/review-note5/git4.jpg" alt="4.vscode提交"></p>
-<p> 第三步，提交文件时在上图的文件列表上部添加提交备注，同事按住ctrl+enter键提交，通过git status命令查看提交状态，<br> <img src="/2018/12/05/review-note5/git5.png" alt="5.查看提交状态"><br> 提示提交信息成功。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjt6r49ll000fk8r27e5bklpx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjw1vntho000ijor2lh7qx6ag" class="article-share-link">Share</a>
       
       
     </footer>
@@ -579,7 +577,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
     </div>
   </div>
 
@@ -590,6 +588,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/05/05/map-note/">利用map解构返回数据格式</a>
+          </li>
         
           <li>
             <a href="/2019/03/12/keepAlive/">动态改变组件的keepAlive的值</a>
@@ -605,10 +607,6 @@
         
           <li>
             <a href="/2019/01/22/review-note12/">iView表单循环表单验证</a>
-          </li>
-        
-          <li>
-            <a href="/2019/01/18/review-note11/">命名视图</a>
           </li>
         
       </ul>
