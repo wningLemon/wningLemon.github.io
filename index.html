@@ -87,8 +87,11 @@
         <meta name="referrer" content="no-referrer">
 
 <p>有的时候后端返回的字段并不是我们需要的，比如<br>1.渲染一个select，那么option接受的属性名称是固定的，<br>2.或者有一个可复用的列表页，可复用的列表将不改变模板中的变量，那么就需要在调用接口的地方将返回的数据名称进行改变</p>
-<p> 很简单，我们利用map对返回结果进行操作，map不会改变原数组会生成一个新的数组</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> newArr = oldArr.map(it =&gt; (&#123;value:it.subjectType, label:it.subjectName&#125;))</span><br><span class="line">或结构对象的方式：</span><br><span class="line"><span class="built_in">let</span> newArr = oldArr.map(&#123;subjectType, subjectName&#125; =&gt; (&#123;value:subjectType, label:subjectName&#125;))</span><br></pre></td></tr></table></figure>
+<p>很简单，我们利用map对返回结果进行操作，map不会改变原数组会生成一个新的数组</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> newArr = arr.map(it =&gt; (&#123;value:it.subjectType, label:it.subjectName&#125;))</span><br></pre></td></tr></table></figure>
+<p>***注意：箭头函数若返回结果是一个对象时一定要添加括号<br>结果如下：<br><img src="/2019/05/05/map-note/转换.jpg" alt="1.map解构对象"></p>
+<p>***注意：箭头函数若只有一个参数的时候可以不用添加括号<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> newArr = arr.map((&#123;subjectType,subjectName&#125;) =&gt; (&#123;value:subjectType,label:subjectName&#125;))</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/05/05/map-note/解构对象.jpg" alt="2.map解构对象"></p>
 
       
     </div>
