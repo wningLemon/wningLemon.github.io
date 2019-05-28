@@ -62,6 +62,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-replace" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/28/replace/" class="article-date">
+  <time datetime="2019-05-28T03:46:12.000Z" itemprop="datePublished">2019-05-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/28/replace/">整理一些正则和replace的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>###replace</p>
+<p>##1.用replace去掉html标签以及空格<br>str.replace(/&lt;img[^&gt;]*&gt;|&lt;\/?.+?\/?&gt;|&nbsp;|\s/gi, ‘’)</p>
+<p>##2.replace的替换文本函数使用<br>replace(regexp/substr, replacement), replce有两个参数，regexp/substr必需。规定子字符串或要替换的模式的 RegExp 对象。</p>
+<p>请注意，如果该值是一个字符串，则将它作为要检索的直接量文本模式，而不是首先被转换为 RegExp 对象；replacement    必需。一个字符串值。规定了替换文本或生成替换文本的函数。</p>
+<p>在项目中会很少用到替换文本的函数，没想到用起来还真的挺强大的，比如在给上传的图片添加缩略的时候，图片地址url_200x300.png这样的格式<br>我们可能需要将图片的后置去掉，然后拼接上图片缩略图的参数，然后在拼上图片的后缀，无疑需要indexOf一下，substring一下等等，用replace的替换文本函数就很容易了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> regx = /\.(JPG|JPEG|PNG|BMP)$/gi</span><br><span class="line">    <span class="built_in">let</span> content = url.replace(regx, (m)=&gt;&#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="string">'_200x300'</span> + m</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>效果如图：<br><img src="/2019/05/28/replace/replace.jpg" alt="1.replace"></p>
+<p>##3取出富文本框中的全部图片<br>在富文本中无论是上传的图片还是复制粘贴过来，其实无非就是img标签，利用正则将图片全部取出，利用正则匹配图片的img标签<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> reg = /&lt;img[^&gt;]*&gt;/gi</span><br><span class="line"><span class="built_in">let</span> arr = data.match(reg)</span><br></pre></td></tr></table></figure></p>
+<p>利用match会返回一个数组</p>
+<p>##4.用正则表达式匹配身份证<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> rep = /(^[1-9]\d&#123;5&#125;(18|19|([23]\d))\d&#123;2&#125;((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d&#123;3&#125;[0-9Xx]$)|(^[1-9]\d&#123;5&#125;\d&#123;2&#125;((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d&#123;2&#125;$)/; </span><br><span class="line">rep.test(val)</span><br></pre></td></tr></table></figure></p>
+<p>符合将返回true否则返回false</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/28/replace/" data-id="cjw7o03mc000l04r2xhru4coy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-reduce" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/27/reduce/" class="article-date">
@@ -503,50 +552,6 @@
 
 
   
-    <article id="post-review-note7" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/29/review-note7/" class="article-date">
-  <time datetime="2018-12-29T06:39:26.000Z" itemprop="datePublished">2018-12-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/29/review-note7/">主子路由你想不到的用处</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer">
-
-<p>vue是单页面应用，只有一个跟组件App.vue，在index.js入口文件中引用需要的一些组件并把app.vue根组件渲染在index.html中。我是这样理解的,app.vue、index.html和index.js之间的关系的。我们会看到app.vue中只有一个<router-view></router-view>，每次跳转理由只是加载不同的组件而已。会遇到一个场景，比如有一个新闻列表页，点进去一条新闻，那么我们希望返回的时候，页面还会在我刚才点进去那条的状态，但是组件切换一定不能保存状态，当然可以使用<keep-alive></keep-alive>虽然有了这个组件，但是你不知道你什么时候会遇到坑，那不妨试试路由的方式吧。</p>
-<p>主子路由又叫嵌套，一个路由嵌套另一个路由，被嵌套的路由为子路由。当一个模板中与子路由有很多相似的地方的时候可以使用主子路由的形式。首先需要在主路由组件中添加渲染模板<br> <router-view></router-view> ,在路由index.js文件中配置子路由<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  name: <span class="string">'success'</span>,</span><br><span class="line">  path: <span class="string">'/success'</span>,</span><br><span class="line">  meta: &#123;title: <span class="string">'成功页面'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">  component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/success/success.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/success/success.vue'</span>))&#125;)&#125;,</span><br><span class="line">  children: [&#123;</span><br><span class="line">    path: <span class="string">'/success1'</span>,</span><br><span class="line">    meta: &#123;title: <span class="string">'成功页面1'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">    component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/success/success1.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/success/success1.vue'</span>))&#125;)&#125;,</span><br><span class="line">  &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在主路由中添加children属性，在该属性下配置子路由，最后在主路由跳转的时候，写法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$router</span>.push(`<span class="variable">$&#123;this.$route.fullPath&#125;</span>/success1`)</span><br></pre></td></tr></table></figure></p>
-<p>通过this.$route下的fullPath属性主组件的路由并拼接子路由的地址，访问子路由的时候一定是加上主路由的地址。在子组件中改变了主组件中的变量，我们可以通过this.$parent.par的方式获取在主路由组件中定义的变量，不用通过路由进行将传递进行传递。并且通过主子路由的方式进行跳转，可以直接通过.this.$route.back()的方式直接回到主路由。<br>注意：如果路由1嵌套了路由2，路由2嵌套了路由3，那么被嵌套的子路由就直接在它的主路由中进行配置就行了，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  name: <span class="string">'success'</span>,</span><br><span class="line">  path: <span class="string">'/success'</span>,</span><br><span class="line">  meta: &#123;title: <span class="string">'成功页面'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">  component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/success/success.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/success/success.vue'</span>))&#125;)&#125;,</span><br><span class="line">  children: [&#123;</span><br><span class="line">    path: <span class="string">'/success1'</span>,</span><br><span class="line">    meta: &#123;title: <span class="string">'成功页面1'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">    component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/success/success1.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/success/success1.vue'</span>))&#125;)&#125;,</span><br><span class="line">    children: [&#123;</span><br><span class="line">      path: <span class="string">'/success2'</span>,</span><br><span class="line">      meta: &#123;title: <span class="string">'成功页面2'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">      component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/success/success1.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/success/success2.vue'</span>))&#125;)&#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjw7mmjfx000f04r2zn3rj1ww" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主子路由/">主子路由</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -597,6 +602,10 @@
       <ul>
         
           <li>
+            <a href="/2019/05/28/replace/">整理一些正则和replace的使用</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/27/reduce/">用reduce对比两个数组的差异</a>
           </li>
         
@@ -610,10 +619,6 @@
         
           <li>
             <a href="/2019/03/11/directive-defined/">vue自定义指令</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/11/mint-picker/">如何设置Mint UI中Picker中的默认值</a>
           </li>
         
       </ul>

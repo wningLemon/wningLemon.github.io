@@ -62,6 +62,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-review-note7" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/29/review-note7/" class="article-date">
+  <time datetime="2018-12-29T06:39:26.000Z" itemprop="datePublished">2018-12-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/29/review-note7/">主子路由你想不到的用处</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>vue是单页面应用，只有一个跟组件App.vue，在index.js入口文件中引用需要的一些组件并把app.vue根组件渲染在index.html中。我是这样理解的,app.vue、index.html和index.js之间的关系的。我们会看到app.vue中只有一个<router-view></router-view>，每次跳转理由只是加载不同的组件而已。会遇到一个场景，比如有一个新闻列表页，点进去一条新闻，那么我们希望返回的时候，页面还会在我刚才点进去那条的状态，但是组件切换一定不能保存状态，当然可以使用<keep-alive></keep-alive>虽然有了这个组件，但是你不知道你什么时候会遇到坑，那不妨试试路由的方式吧。</p>
+<p>主子路由又叫嵌套，一个路由嵌套另一个路由，被嵌套的路由为子路由。当一个模板中与子路由有很多相似的地方的时候可以使用主子路由的形式。首先需要在主路由组件中添加渲染模板<br> <router-view></router-view> ,在路由index.js文件中配置子路由<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  name: <span class="string">'success'</span>,</span><br><span class="line">  path: <span class="string">'/success'</span>,</span><br><span class="line">  meta: &#123;title: <span class="string">'成功页面'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">  component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/success/success.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/success/success.vue'</span>))&#125;)&#125;,</span><br><span class="line">  children: [&#123;</span><br><span class="line">    path: <span class="string">'/success1'</span>,</span><br><span class="line">    meta: &#123;title: <span class="string">'成功页面1'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">    component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/success/success1.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/success/success1.vue'</span>))&#125;)&#125;,</span><br><span class="line">  &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在主路由中添加children属性，在该属性下配置子路由，最后在主路由跳转的时候，写法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$router</span>.push(`<span class="variable">$&#123;this.$route.fullPath&#125;</span>/success1`)</span><br></pre></td></tr></table></figure></p>
+<p>通过this.$route下的fullPath属性主组件的路由并拼接子路由的地址，访问子路由的时候一定是加上主路由的地址。在子组件中改变了主组件中的变量，我们可以通过this.$parent.par的方式获取在主路由组件中定义的变量，不用通过路由进行将传递进行传递。并且通过主子路由的方式进行跳转，可以直接通过.this.$route.back()的方式直接回到主路由。<br>注意：如果路由1嵌套了路由2，路由2嵌套了路由3，那么被嵌套的子路由就直接在它的主路由中进行配置就行了，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  name: <span class="string">'success'</span>,</span><br><span class="line">  path: <span class="string">'/success'</span>,</span><br><span class="line">  meta: &#123;title: <span class="string">'成功页面'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">  component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/success/success.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/success/success.vue'</span>))&#125;)&#125;,</span><br><span class="line">  children: [&#123;</span><br><span class="line">    path: <span class="string">'/success1'</span>,</span><br><span class="line">    meta: &#123;title: <span class="string">'成功页面1'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">    component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/success/success1.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/success/success1.vue'</span>))&#125;)&#125;,</span><br><span class="line">    children: [&#123;</span><br><span class="line">      path: <span class="string">'/success2'</span>,</span><br><span class="line">      meta: &#123;title: <span class="string">'成功页面2'</span>, keepAlive: <span class="literal">true</span>&#125;,</span><br><span class="line">      component: resolve =&gt; &#123;require.ensure([<span class="string">'../pages/success/success1.vue'</span>], () =&gt; &#123;resolve(require(<span class="string">'../pages/success/success2.vue'</span>))&#125;)&#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjw7mmjfx000f04r2zn3rj1ww" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主子路由/">主子路由</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-review-note6" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/05/review-note6/" class="article-date">
@@ -488,6 +532,10 @@
       <ul>
         
           <li>
+            <a href="/2019/05/28/replace/">整理一些正则和replace的使用</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/27/reduce/">用reduce对比两个数组的差异</a>
           </li>
         
@@ -501,10 +549,6 @@
         
           <li>
             <a href="/2019/03/11/directive-defined/">vue自定义指令</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/11/mint-picker/">如何设置Mint UI中Picker中的默认值</a>
           </li>
         
       </ul>
