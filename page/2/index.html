@@ -62,6 +62,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-review-note6" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/05/review-note6/" class="article-date">
+  <time datetime="2018-12-05T09:31:26.000Z" itemprop="datePublished">2018-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/05/review-note6/">sessionStorage与localStorage的区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>  HTML5 的 DOM Storage 机制提供了一种方式让程序员能够把信息存储到本地的计算机上，在需要时获取。这点和 cookie 相似，区别是 DOM Storage 提供了更大容量的存储空间。以前在客户端保存数据使用最多的是 cookie，但 cookie 的大小上限为 4KB，虽然sessionStorage和localStorage也有限制，但是比cookie大的多，并且每次请求一个新页面时 cookie 都会被发送过去，无形中浪费带宽。<br>   在项目中不同组件需要相同的一些数据，通过路由传来传去，还得在不同路由中需要定义参数进行接收，无疑在不同组件中定义了很多变量，若是放在全局，并不能清除掉，无疑浪费资源。可以通过Storage机制存在客户端，不同路由就直接取即可，那么需要考虑使用两种对象使用哪一种。</p>
+<h2 id="（1）区别"><a href="#（1）区别" class="headerlink" title="（1）区别"></a>（1）区别</h2><p>   sessionStorage：仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；作用域不同，sessionStorage不在不同的浏览器窗口中共享，即使是同一个页面；localStorage 在所有同源窗口中都是共享的。通过以上的不同点，在本项目中使用session来进行存取，只在一次会话中进行存取。</p>
+<h2 id="（2）存取方法"><a href="#（2）存取方法" class="headerlink" title="（2）存取方法"></a>（2）存取方法</h2>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sessionStorage.setItem(<span class="string">"key"</span>, <span class="string">"value"</span>); 	localStorage.setItem(<span class="string">"key"</span>, <span class="string">"value"</span>);</span><br><span class="line">sessionStorage.getItem(<span class="string">"key"</span>, <span class="string">"value"</span>); 	localStorage.getItem(<span class="string">"key"</span>, <span class="string">"value"</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="（3）保存在-Storage-对象的数据类型"><a href="#（3）保存在-Storage-对象的数据类型" class="headerlink" title="（3）保存在 Storage 对象的数据类型"></a>（3）保存在 Storage 对象的数据类型</h2><p>当使用 DOM Storage 进行本地存储时，任何数据格式在 Storage 对象中都以字符串类型保存，所以如果保存的数据不是字符串，在读取的时候需要自己进行类型的转换。这里我们使用 JSON 将对象序列化之后再存储。<br>在项目中其中有一个对象需要存入到缓存中：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sessionStorage.setItem(<span class="string">'textarea'</span>, this.textarea)</span><br></pre></td></tr></table></figure>
+<p>This.textarea是我在组件中定义的一个对象，但是在 Storage 对象中都以字符串类型保存，所以在Application中查看的时候是这样的：<br><img src="/2018/12/05/review-note6/session2.png" alt="1.查看Application中存储的字段"></p>
+<p>所以在存session的时候需要进行转换，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sessionStorage.setItem(<span class="string">'textarea'</span>, JSON.stringify(this.textarea))</span><br></pre></td></tr></table></figure></p>
+<p>现在存的session是一个字符串了，所以在取出session值得时候依然需要转换，转换成原来的数据类型格式，如下：<br><img src="/2018/12/05/review-note6/session2.png" alt="2.查看Application中存储的字段"><br>JSON.parse() 函数会把 JSON 对象转换为原来的数据类型。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjw7mmjfx000e04r24k5hanll" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-review-note5" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/05/review-note5/" class="article-date">
@@ -95,7 +141,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjw1vnthk000djor2807nmsge" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjw7mmjfx000d04r2glj7ieaq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -145,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/23/review-note4/" data-id="cjw1vnthe0009jor2oy49m1i4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/23/review-note4/" data-id="cjw7mmjfh000c04r2aqo44q33" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/22/review-note2/" data-id="cjw1vntho000hjor2130lp553" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/22/review-note2/" data-id="cjw7mmjfh000b04r27i5snk04" class="article-share-link">Share</a>
       
       
     </footer>
@@ -255,7 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/20/review-note/" data-id="cjw1vntgw0005jor2n8t4ek2w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/20/review-note/" data-id="cjw7mmjfh000704r27ldoalxl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -302,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/17/hello/" data-id="cjw1vntgv0004jor2ponnzesj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/17/hello/" data-id="cjw7mmjfh000204r220wkqruu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -339,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/16/hello-world/" data-id="cjw1vntgj0000jor2br6k8cgo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/16/hello-world/" data-id="cjw7mmjfg000104r2g2tojd78" class="article-share-link">Share</a>
       
       
     </footer>
@@ -382,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/16/review-note9/" data-id="cjw1vnthm000ejor2v2906xk3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/16/review-note9/" data-id="cjw7mmjfx000g04r2yixo2k20" class="article-share-link">Share</a>
       
       
     </footer>
@@ -442,6 +488,10 @@
       <ul>
         
           <li>
+            <a href="/2019/05/27/reduce/">用reduce对比两个数组的差异</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/05/map-note/">利用map解构返回数据格式</a>
           </li>
         
@@ -455,10 +505,6 @@
         
           <li>
             <a href="/2019/03/11/mint-picker/">如何设置Mint UI中Picker中的默认值</a>
-          </li>
-        
-          <li>
-            <a href="/2019/01/22/review-note12/">iView表单循环表单验证</a>
           </li>
         
       </ul>
