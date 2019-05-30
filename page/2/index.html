@@ -62,6 +62,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-review-note8" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/15/review-note8/" class="article-date">
+  <time datetime="2019-01-15T02:24:02.000Z" itemprop="datePublished">2019-01-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/15/review-note8/">map方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<h3 id="1-返回新数组"><a href="#1-返回新数组" class="headerlink" title="1.返回新数组"></a>1.返回新数组</h3><p>map和forEach都是遍历数组中的每一项，某种意义上告别了for循环。map与forEach支持三个参数，分别为item（数组中的每一项），index（每一项在数组中的索引），arr（数组本身），参数顺序不能错。map与forEach不同的是map遍历数组可以有返回值，如：<br><img src="/2019/01/15/review-note8/map1.png" alt="1.map遍历数组"></p>
+<p>遍历数据，将每一项除以2，并返回，这时候打印发现是一个新的数组，这个新数组由原数组元素对应的回调函数的返回值构成。若没有返回值，则新数组的所有元素为undefined。虽然返回一个新的数组，但是并不会覆盖原数组。<br>用同样的方法，用forEach试一遍：<br><img src="/2019/01/15/review-note8/forEach.png" alt="2.forEach遍历数组"><br>这时候打印就是undefined了，也就是说forEach只是数组中的每一项。</p>
+<h3 id="2-替换原数组"><a href="#2-替换原数组" class="headerlink" title="2.替换原数组"></a>2.替换原数组</h3><p>我们可以通过map返回一个新的数组的特性，替换原来数组，如：<br><img src="/2019/01/15/review-note8/map3.png" alt="3.利用map返回新数组"></p>
+<h3 id="3-改变键值-key"><a href="#3-改变键值-key" class="headerlink" title="3.改变键值(key)"></a>3.改变键值(key)</h3><p>如果我们封装类似于下拉框的组件，根据不同配置调用不同的接口，组件中双向绑定的键值是不会变的，不然也达不到封装组件的意义了。那么获取人员列表的时候后端返回username，userId，获取部门列表的时候返回partname，partId，那么根据组件的要求，我们要将字段名称改成label与value。<br>如果说只需要用label与value的话，那么可以写成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.list = data.map((&#123;id, name&#125;) =&gt; (&#123;label: name, value: id&#125;))</span><br></pre></td></tr></table></figure></p>
+<p>先将map中的item进行解构，箭头函数若省略return的话加一个()。那么上边写的是你已经确定后端一定会返回id，name的时候，上边说的场景是后端接口返回的key是不确定的，所以我们需要写一个方法。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">changeFieldName (name1, name2, arr) &#123;</span><br><span class="line">  this.list= arr.map((item) =&gt; (&#123;label: item[name1], value: item[name2]&#125;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/15/review-note8/" data-id="cjwal71jq000gaor2sg1vjkur" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-review-note7" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/29/review-note7/" class="article-date">
@@ -94,7 +137,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjw7mmjfx000f04r2zn3rj1ww" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/29/review-note7/" data-id="cjwal71jg000faor23093dgap" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主子路由/">主子路由</a></li></ul>
@@ -142,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjw7mmjfx000e04r24k5hanll" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/review-note6/" data-id="cjwal71lg000laor26q8lfugo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -185,7 +228,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjw7mmjfx000d04r2glj7ieaq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/review-note5/" data-id="cjwal71jf000eaor2nbnqapuf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -235,7 +278,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/23/review-note4/" data-id="cjw7mmjfh000c04r2aqo44q33" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/23/review-note4/" data-id="cjwal71je000caor2xrtlwq9v" class="article-share-link">Share</a>
       
       
     </footer>
@@ -283,7 +326,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/22/review-note2/" data-id="cjw7mmjfh000b04r27i5snk04" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/22/review-note2/" data-id="cjwal71jf000daor2io1rxkk6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -345,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/20/review-note/" data-id="cjw7mmjfh000704r27ldoalxl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/20/review-note/" data-id="cjwal71j20005aor23obvzjnw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -392,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/17/hello/" data-id="cjw7mmjfh000204r220wkqruu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/17/hello/" data-id="cjwal71ig0001aor2gjyzpimn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -429,7 +472,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/16/hello-world/" data-id="cjw7mmjfg000104r2g2tojd78" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/16/hello-world/" data-id="cjwal71iy0003aor2xvott64h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -472,7 +515,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/16/review-note9/" data-id="cjw7mmjfx000g04r2yixo2k20" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/16/review-note9/" data-id="cjwal71k2000iaor2br9if7zo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -532,6 +575,10 @@
       <ul>
         
           <li>
+            <a href="/2019/05/30/clear-form/">ivew表单清空表单的一些技巧</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/28/replace/">整理一些正则和replace的使用</a>
           </li>
         
@@ -545,10 +592,6 @@
         
           <li>
             <a href="/2019/03/12/keepAlive/">动态改变组件的keepAlive的值</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/11/directive-defined/">vue自定义指令</a>
           </li>
         
       </ul>
