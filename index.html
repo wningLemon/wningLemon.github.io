@@ -62,10 +62,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-review-note-react1" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-test-2022" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/07/01/review-note-react1/" class="article-date">
-  <time datetime="2020-07-01T08:54:35.000Z" itemprop="datePublished">2020-07-01</time>
+    <a href="/2022/07/20/test-2022/" class="article-date">
+  <time datetime="2022-07-20T00:20:17.000Z" itemprop="datePublished">2022-07-20</time>
 </a>
     
   </div>
@@ -76,7 +76,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/01/review-note-react1/">review-note-react1</a>
+      <a class="article-title" href="/2022/07/20/test-2022/">test-2022</a>
     </h1>
   
 
@@ -86,12 +86,12 @@
       
         <meta name="referrer" content="no-referrer">
 
+<p>测试2022</p>
 
-<h3 id="场景二-基于某个vue组件使用http（this-http）"><a href="#场景二-基于某个vue组件使用http（this-http）" class="headerlink" title="场景二 基于某个vue组件使用http（this.$http）"></a>场景二 基于某个vue组件使用http（this.$http）</h3>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/01/review-note-react1/" data-id="ckc37cyyt0009jt5xft8ax0iy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2022/07/20/test-2022/" data-id="cl5suzeec000j2a0scvo8rybl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -101,10 +101,10 @@
 
 
   
-    <article id="post-hello" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-wx-official-Accounts" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/06/30/hello/" class="article-date">
-  <time datetime="2020-06-30T02:54:12.000Z" itemprop="datePublished">2020-06-30</time>
+    <a href="/2020/07/02/wx-official-Accounts/" class="article-date">
+  <time datetime="2020-07-02T10:54:20.000Z" itemprop="datePublished">2020-07-02</time>
 </a>
     
   </div>
@@ -115,7 +115,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/30/hello/">vue-resource怎么写服务类</a>
+      <a class="article-title" href="/2020/07/02/wx-official-Accounts/">网页公众号开发</a>
     </h1>
   
 
@@ -123,107 +123,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>vue-resource可以基于全局的Vue对象使用http（vue.http），也可以基于某个Vue实例使用http(this.$http)。<br>    基于全局Vue对象使用http<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Vue.http.get(<span class="string">'/someUrl'</span>, [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br><span class="line">Vue.http.post(<span class="string">'/someUrl'</span>, [body], [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br></pre></td></tr></table></figure></p>
-<p>在一个Vue实例内使用$http</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$http</span>.get(<span class="string">'/someUrl'</span>, [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br><span class="line">this.<span class="variable">$http</span>.post(<span class="string">'/someUrl'</span>, [body], [options]).<span class="keyword">then</span>(successCallback, errorCallback);</span><br></pre></td></tr></table></figure>
-<p>在发送请求后，使用then方法来处理响应结果，then方法有两个参数，第一个参数是响应成功时的回调函数，第二个参数是响应失败时的回调函数。</p>
-<h2 id="两种场景使用"><a href="#两种场景使用" class="headerlink" title="两种场景使用"></a>两种场景使用</h2><h3 id="场景一-基于全局对象使用http（vue-http）"><a href="#场景一-基于全局对象使用http（vue-http）" class="headerlink" title="场景一 基于全局对象使用http（vue.http）"></a>场景一 基于全局对象使用http（vue.http）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.<span class="variable">$http</span>.get(<span class="string">'/static/address/address.json'</span>).<span class="keyword">then</span>(res =&gt; &#123; <span class="built_in">let</span> list = res.body &#125;)</span><br></pre></td></tr></table></figure>
-<p>上边是请求本地的json文件，then方法中传入一个参数，响应成功时将返回的数据传到本地的数组中，response.body为返回的请求体。<br>在实际项目开发过程中，用到的也是全局的，如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> res =await <span class="variable">$http</span>.get(<span class="string">'/static/address/address.json'</span>, &#123;params: param&#125;).<span class="keyword">then</span>(res =&gt; res.json)</span><br></pre></td></tr></table></figure>
-<p>会发现没有写vue和this，但是事实是项目中对vue-resource进行了封装，所以直接$http直接可以代替全局的写法</p>
-<h3 id="场景二-基于某个vue组件使用http（this-http）"><a href="#场景二-基于某个vue组件使用http（this-http）" class="headerlink" title="场景二 基于某个vue组件使用http（this.$http）"></a>场景二 基于某个vue组件使用http（this.$http）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">created</span></span> () &#123;</span><br><span class="line">  this.<span class="variable">$http</span>.get(<span class="string">'http://apis.baidu.com/tiyu'</span>, &#123;</span><br><span class="line">    params: &#123;num: 10&#125;</span><br><span class="line">  &#125;).<span class="keyword">then</span>((res) =&gt; &#123;console.log(res.body)&#125;, (err)=&gt;&#123;</span><br><span class="line">     console.log(<span class="string">'出错'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在一个组件中使用vue-resource时，将请求写在钩子函数中，大多数情况写在created钩子函数中。</p>
-<p>———————美丽的分割线———————<br>ps：以上都是开始学习vue的时候做的笔记，最近整理到博客上，也发现了其中的一些不足，慢慢完善</p>
+        <meta name="referrer" content="no-referrer">
+
+<p>背景是要在一个h5的页面，可以发送语音可以听语音，因为苹果手机对Audio的支持有限，所以后来准备采用微信公众号开发，因为这个h5也是要签入在项目的公众号中。</p>
+<h3 id="先扒文档"><a href="#先扒文档" class="headerlink" title="先扒文档"></a>先扒文档</h3><p><a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html" target="_blank" rel="noopener">微信官网文档</a></p>
+<p><img src="/2020/07/02/wx-official-Accounts/wechat1.png" alt="1.文档指引截图"></p>
+<h2 id="第一步：绑定域名"><a href="#第一步：绑定域名" class="headerlink" title="第一步：绑定域名"></a>第一步：绑定域名</h2><p>先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。虽然微信公众平台提供了测试号，但是在微信开发者工具中还是是用不了微信能力,还是需要申请一个个人的公众号或者是公司的。</p>
+<p><img src="/2020/07/02/wx-official-Accounts/wechat3.png" alt="2.设置安全域名"></p>
+<h2 id="第二步：引入js文件"><a href="#第二步：引入js文件" class="headerlink" title="第二步：引入js文件"></a>第二步：引入js文件</h2><p><img src="/2020/07/02/wx-official-Accounts/wechat2.png" alt="3.引入js"><br>可以直接引入js标签，也可以是添加模块的方式，这里我用了yarn add weixin-js-sdk</p>
+<h2 id="第三步：通过config接口注入权限验证配置"><a href="#第三步：通过config接口注入权限验证配置" class="headerlink" title="第三步：通过config接口注入权限验证配置"></a>第三步：通过config接口注入权限验证配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wx.config(&#123;</span><br><span class="line">  debug: <span class="literal">true</span>, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过<span class="built_in">log</span>打出，仅在pc端时才会打印。</span><br><span class="line">  appId: <span class="string">''</span>, // 必填，公众号的唯一标识</span><br><span class="line">  timestamp: , // 必填，生成签名的时间戳</span><br><span class="line">  nonceStr: <span class="string">''</span>, // 必填，生成签名的随机串</span><br><span class="line">  signature: <span class="string">''</span>,// 必填，签名</span><br><span class="line">  jsApiList: [] // 必填，需要使用的JS接口列表</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>除了debug，jsApiList是需要前端自己需要设置，其他都可以依赖后端的返回,其中签名算法，在文档的文末的附录1。<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62" target="_blank" rel="noopener">附录1</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/30/hello/" data-id="ckc37cyyl0003jt5x9p150cgw" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-review-note2" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/30/review-note2/" class="article-date">
-  <time datetime="2020-06-30T02:54:12.000Z" itemprop="datePublished">2020-06-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/30/review-note2/">路由传参的几种方式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>组件跳转的时候，下一个组件有的时候会需要前一个页面的一些参数。比如说相同的组件但是要根据不同的角色请求不同的接口等等。有几种路由传递参数的方式：</p>
-<h3 id="（1）通过url路径来传递参数-不太知道如何定义类型"><a href="#（1）通过url路径来传递参数-不太知道如何定义类型" class="headerlink" title="（1）通过url路径来传递参数(不太知道如何定义类型)"></a>（1）通过url路径来传递参数(不太知道如何定义类型)</h3><p>那么通过url路径在浏览器中显示为：<em><a href="http://localhost:8079/#/detail/333" target="_blank" rel="noopener">http://localhost:8079/#/detail/333</a></em><br>detail是我要跳转的页面/后面333就是我要传递的参数，若是使用这种方式来传递参数的时候，我们需要在路由的文件中来修改一下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// detail后面添加/:id, id代表传过来的参数名为id</span><br><span class="line">&#123; path: <span class="string">'/detail/:id'</span>, name: <span class="string">'detail'</span>, meta: &#123;title: <span class="string">'办事详情'</span>&#125;, component: detail &#125;</span><br></pre></td></tr></table></figure></p>
-<p>在跳转路由的时候有两种方式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$router</span>.push(&#123;path: <span class="string">'/detail/333'</span>&#125;);    // 在js的方法中</span><br><span class="line"></span><br><span class="line">&lt;router-link :to=<span class="string">"&#123;path: '/detail/333'&#125;"</span>&gt;&lt;/router-link&gt;  // 在组件中使用&lt;router-link&gt;标签</span><br></pre></td></tr></table></figure></p>
-<p>那么我们在detail组件中通过以下的方式来获取参数id的值<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$route</span>.params.id</span><br></pre></td></tr></table></figure></p>
-<p>*注意：路由跳转的时候是router，获取路由参数的时候是route</p>
-<h3 id="（2）通过query来传递参数"><a href="#（2）通过query来传递参数" class="headerlink" title="（2）通过query来传递参数"></a>（2）通过query来传递参数</h3><p>通过query传递参数的时候，在浏览器显示则为：<em><a href="http://localhost:8079/#/detail?id=333" target="_blank" rel="noopener">http://localhost:8079/#/detail?id=333</a></em><br>会拼接在url的问号后面，这种方式不用修改路由的文件，写成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; path: <span class="string">'/detail'</span>, name: <span class="string">'detail'</span>, meta: &#123;title: <span class="string">'办事详情'</span>&#125;, component: detail &#125;,</span><br></pre></td></tr></table></figure></p>
-<p>那么在跳转路由的时候写成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$router</span>.push(&#123;path: <span class="string">'/detail'</span>, query: &#123;id: 333&#125;&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>在获取参数id的时候，写法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$route</span>.query.id</span><br></pre></td></tr></table></figure></p>
-<h3 id="（2）通过pararms来传递参数"><a href="#（2）通过pararms来传递参数" class="headerlink" title="（2）通过pararms来传递参数"></a>（2）通过pararms来传递参数</h3><p>通过pararms传递参数的时候，在浏览器显示则为：<em><a href="http://localhost:8079/#/detail" target="_blank" rel="noopener">http://localhost:8079/#/detail</a></em><br>也就是说这种传递参数的方式不会在url显示出来。并且这种方式不用修改路由的文件，写法参见方法二</p>
-<p>那么在跳转路由的时候写成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$router</span>.push(&#123;name: <span class="string">'detail'</span>, params: &#123;id: 333&#125;&#125;);</span><br><span class="line">// 注意哦，看着跟方法二很像，差别有两个：</span><br><span class="line">push对象中path改成name，对应跳转组件的name；</span><br><span class="line">第二个参数对象名称为params</span><br></pre></td></tr></table></figure></p>
-<p>在获取参数id的时候，写法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$route</span>.params.id</span><br></pre></td></tr></table></figure></p>
-<p>———————美丽的分割线———————<br>ps：以上都是开始学习vue的时候做的笔记，最近整理到博客上，也发现了其中的一些不足，慢慢完善</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/30/review-note2/" data-id="ckc37cyz0000ejt5x96sfj2kb" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/30/hello-world/" class="article-date">
-  <time datetime="2020-06-30T02:54:12.000Z" itemprop="datePublished">2020-06-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/30/hello-world/">欢迎来踩踩</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>开始整理一些之前学习和在项目中的笔记，这样就不用在多个客户端下载OneNote然后同步笔记、同步笔记、同步笔记！最开始都是刚刚参加的时候做的一些笔记以及项目总结，比较稚嫩，后边还是会注意质量的输出。来啦~~~</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/30/hello-world/" data-id="ckc37cyyj0002jt5xcd99nqoz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/02/wx-official-Accounts/" data-id="cl5suzeed000k2a0sbww55jo5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -274,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/30/clear-form/" data-id="ckc37cyyb0000jt5xvzwrjqm6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/30/clear-form/" data-id="cl5suzedn00022a0snbd520n5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -322,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/28/replace/" data-id="ckc37cyyq0007jt5x7yrq1eee" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/28/replace/" data-id="cl5suzedv00082a0sjiey3ume" class="article-share-link">Share</a>
       
       
     </footer>
@@ -372,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/reduce/" data-id="ckc37cyyr0008jt5xl6xduoiz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/reduce/" data-id="cl5suzedu00072a0s5z3ow5gh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -416,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/05/map-note/" data-id="ckc37cyyn0005jt5x44kllgwb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/05/map-note/" data-id="cl5suzedq00042a0snb3133fh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -467,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/12/keepAlive/" data-id="ckc37cyym0004jt5xl4dazy5b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/12/keepAlive/" data-id="cl5suzeds00052a0shxxwxfh0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -512,7 +426,105 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/directive-defined/" data-id="ckc37cyyh0001jt5xiqkxnmod" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/directive-defined/" data-id="cl5suzedk00012a0sj2dcl1wn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mint-picker" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/11/mint-picker/" class="article-date">
+  <time datetime="2019-03-11T02:23:41.000Z" itemprop="datePublished">2019-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/11/mint-picker/">如何设置Mint UI中Picker中的默认值</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<h3 id="第一步：引入组件"><a href="#第一步：引入组件" class="headerlink" title="第一步：引入组件"></a>第一步：引入组件</h3><p>js部分引入依赖<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Popup, Picker&#125; from <span class="string">"mint-ui"</span>;</span><br><span class="line">Vue.component(Switch.name, Switch);</span><br><span class="line">Vue.component(Popup.name, Popup);</span><br></pre></td></tr></table></figure></p>
+<p>在模板中引入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;mt-popup v-model=<span class="string">"remindVisible"</span> position=<span class="string">"bottom"</span> class=<span class="string">"remind-popup"</span>&gt;</span><br><span class="line">  &lt;mt-picker :slots=<span class="string">"Minuteslots"</span> @change=<span class="string">"onRemindChange"</span> :show-toolbar=<span class="string">"true"</span> v-model=<span class="string">"remindMin"</span>&gt;</span><br><span class="line">  &lt;/mt-picker&gt;</span><br><span class="line">&lt;/mt-popup&gt;</span><br></pre></td></tr></table></figure></p>
+<p>能够从上边的代码可以看出picker结合了popup使用。在使用picker的时候，有一个参数为slots，这个参数就是picker的备选值都有哪些，同时可以设置picker默认选中项，那么slots的参数在data中是这样设置的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  <span class="function"><span class="title">data</span></span> () &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      Minuteslots: [&#123;</span><br><span class="line">        values: [<span class="string">'未设置'</span>, <span class="string">'15分钟'</span>, <span class="string">'60分钟'</span>, <span class="string">'一天'</span>],</span><br><span class="line">        defaultIndex: 1</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中defaultIndex就是默认值的在values中的index值，言外之意就是picker默认选中的就是’15分钟’。<br>有一个问题就是如果是一个提交信息的页面，并且还可以提交后进行编辑，那么将返回的数据为picker的默认值，这个时候就用到双向绑定,v-model了，设置了一个remindMin变量，因为后端返回的数据和前端picker显示的不同，所以使用computed进行转换，并改变defaultIndex来改变picker中的默认值（picker中高亮的部分）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    <span class="function"><span class="title">remindMin</span></span> () &#123;</span><br><span class="line">      switch(this.formObj.remindMinute) &#123;</span><br><span class="line">        <span class="keyword">case</span> 0:</span><br><span class="line">          this.Minuteslots[0].defaultIndex = 0</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'未设置'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> 15: </span><br><span class="line">          this.Minuteslots[0].defaultIndex = 1</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'15分钟'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> 60: </span><br><span class="line">          this.Minuteslots[0].defaultIndex = 2</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'60分钟'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> 1440: </span><br><span class="line">          this.Minuteslots[0].defaultIndex = 3</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'一天'</span></span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">        default: </span><br><span class="line">          <span class="built_in">return</span> this.formObj.remindMinute</span><br><span class="line">          <span class="built_in">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>那么就做到了，当有后端返回的时候，我们通过计算属性来改变当前的默认值以及显示。</p>
+<hr>
+<p>如果你有什么更好的方法，很开心能跟你交流，QQ:39004003 [笑脸]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/11/mint-picker/" data-id="cl5suzedt00062a0s3mx1nra5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-review-note12" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/22/review-note12/" class="article-date">
+  <time datetime="2019-01-22T08:00:08.000Z" itemprop="datePublished">2019-01-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/22/review-note12/">iView表单循环表单验证</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+
+<p>PC端现在用的最多的组件库就是iView，通常我们都是一个表单验证后就提交了，如果是动态新添加的表单，如何做验证并提交呢。首先先看一下要实现的样子：</p>
+<p><img src="/2019/01/22/review-note12/form.jpg" alt="1.循环表单验证"></p>
+<p>你会发现，两个表单在分别点击完成的时候都分别作了验证。</p>
+<p>iView的Form表单，需要两个属性，rule是表单验证规则，比如该字段是否需要必填等，即使是循环动态生成的表单，若是相同的表单项，那么验证规则一定是一样的，所以rule所关联的就是一个变量；还有一个属性model是表单数据对象，那么我们既然是循环生成的表单，并且每一次点击完成的时候是提交当前的表格的数据，所以我们想到model是循环生成表单的list的某一项，那么我们就可以定义变量了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 表单验证规则</span><br><span class="line">uploadFormRule: &#123;</span><br><span class="line">  mechanismAddress: [</span><br><span class="line">    &#123; required: <span class="literal">true</span>, message: <span class="string">'请输入服务机构地址'</span>, trigger: <span class="string">'blur'</span> &#125;],</span><br><span class="line">  mechanismName: [</span><br><span class="line">    &#123; required: <span class="literal">true</span>, message: <span class="string">'请输入服务机构名称'</span>, trigger: <span class="string">'blur'</span> &#125;],</span><br><span class="line">  mechanismPhone: [</span><br><span class="line">    &#123; required: <span class="literal">true</span>, message: <span class="string">'请输入手机号'</span>, trigger: <span class="string">'blur'</span> &#125;,</span><br><span class="line">    &#123; pattern: /^(\d&#123;11&#125;|\d&#123;3&#125;-\d&#123;8&#125;)$/, message: <span class="string">'请输入正确的联系方式'</span>, trigger: <span class="string">'blur'</span> &#125;</span><br><span class="line">  ],</span><br><span class="line">  mechanismUrl: [</span><br><span class="line">    &#123; <span class="built_in">type</span>: <span class="string">'url'</span>, message: <span class="string">'请输入正确的服务机构网址'</span>, trigger: <span class="string">'blur'</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br><span class="line">list: [</span><br><span class="line">  &#123;</span><br><span class="line">    mechanismAddress: <span class="string">""</span>,</span><br><span class="line">    mechanismName: <span class="string">""</span>,</span><br><span class="line">    mechanismPhone: <span class="string">""</span>,</span><br><span class="line">    mechanismUrl: <span class="string">""</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>那么循环表单的时候就可以写成(忽略一些样式所需要的元素)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Form v-for=<span class="string">"(li, index) in list"</span> :key=<span class="string">"index"</span>  :rules=<span class="string">"uploadFormRule"</span>  :model=<span class="string">"li"</span>&gt;&lt;/Form&gt;</span><br></pre></td></tr></table></figure>
+<p>那么现在就是最重要的问题了，我们知道如果是当个表单验证的时候就是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="variable">$refs</span>[name].validate((valid) =&gt; &#123;&#125;)</span><br><span class="line">// name指的是model所对应的对象名字</span><br></pre></td></tr></table></figure>
+<p>那么this.$ref是获取注册过的组件，所以需要使用ref来注册组件，通常单表单注册的时候就是model所关联的对象，但是是循环生成的表单并且都需要验证，那ref就需要换一个写法，ref是一个对象，也就是说点击完成的时候我们验证的是当前的这个表单，所以ref需要关联当前的index,所以表单写成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Form v-for=<span class="string">"(li, index) in list"</span> :key=<span class="string">"index"</span>  :rules=<span class="string">"uploadFormRule"</span>  :model=<span class="string">"li"</span> :ref=<span class="string">"'list' + index"</span>&gt;&lt;/Form&gt;</span><br><span class="line">// 当然ref里边list可以替换成想要的字符串，比如li</span><br><span class="line">// 验证表单的时候：</span><br><span class="line"><span class="built_in">let</span> form = <span class="string">'list'</span> + index</span><br><span class="line">this.<span class="variable">$refs</span>[form][0].validate((valid) =&gt; &#123;&#125;)</span><br></pre></td></tr></table></figure>
+<p>之所以这样写，把refs打印出来是这样的<br><img src="/2019/01/22/review-note12/ref.jpg" alt="2.打印ref"></p>
+<p>页面有几个表单，就注册了几个表单，refs是一个对象，注册时使用ref=”‘list’ + index”来命名每一个表单，自然取出时也需要拼接这样的一个字符串，从上图中可以看出，每一个ref对象（每一个表单项都一个数组），打印一下我们可以看出，我们每个表单所对应的model绑定数据对象以及rule<br><img src="/2019/01/22/review-note12/ref2.jpg" alt="3.张开refs中某一项"></p>
+<p><strong>总结：循环表单验证的时候注册组件时主要加上该表单的唯一标识，index或者key</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/22/review-note12/" data-id="cl5suzedz000b2a0sgag0erls" class="article-share-link">Share</a>
       
       
     </footer>
@@ -559,7 +571,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
     </div>
   </div>
 
@@ -572,23 +584,23 @@
       <ul>
         
           <li>
-            <a href="/2020/07/01/review-note-react1/">review-note-react1</a>
+            <a href="/2022/07/20/test-2022/">test-2022</a>
           </li>
         
           <li>
-            <a href="/2020/06/30/hello/">vue-resource怎么写服务类</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/30/review-note2/">路由传参的几种方式</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/30/hello-world/">欢迎来踩踩</a>
+            <a href="/2020/07/02/wx-official-Accounts/">网页公众号开发</a>
           </li>
         
           <li>
             <a href="/2019/05/30/clear-form/">ivew表单清空表单的一些技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/28/replace/">整理一些正则和replace的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/27/reduce/">用reduce对比两个数组的差异</a>
           </li>
         
       </ul>
@@ -603,7 +615,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 WningLemon<br>
+      &copy; 2022 WningLemon<br>
       Powered by <a href="http://hexo.io/" target="_blank">WningLemon</a>
     </div>
   </div>
